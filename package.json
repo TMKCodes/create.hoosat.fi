@@ -32,9 +32,9 @@
     "dev:build:server": "webpack --config webpack.server.config.js --mode=development",
     "dev:prebuild": "npm-run-all dev:create:build:directories dev:move:assets dev:move:css dev:create:service-worker:urls",
     "dev:build": "npm-run-all dev:prebuild dev:build:client dev:build:server dev:compress:assets",
-    "dev:start": "cross-env NODE_ENV=development nodemon --experimental-modules build-dev/server.js development",
+    "dev:start": "nodemon --experimental-modules build-dev/server.js development",
     "dev:watch": "chokidar './src/' './public/' -c 'npm-run-all dev:build'",
-    "dev": "npm-run-all clean:build-ts clean:build-dev dev:build -p dev:watch dev:start",
+    "dev": "cross-env NODE_ENV=development npm-run-all clean:build-ts clean:build-dev dev:build -p dev:watch dev:start",
     "compress:assets:br": "node --loader ts-node/esm build-tools/compress-files.ts build/public/ br",
     "compress:assets:deflate": "node --loader ts-node/esm build-tools/compress-files.ts build/public/ deflate",
     "compress:assets:gzip": "node --loader ts-node/esm build-tools/compress-files.ts build/public/ gzip",
@@ -46,9 +46,9 @@
     "build:client": "webpack --config webpack.client.config.js --mode=production",
     "build:server": "webpack --config webpack.server.config.js --mode=production",
     "prebuild": "npm-run-all clean:build-ts clean:build create:build:directories move:assets move:css create:service-worker:urls ",
-    "build": "npm-run-all prebuild build:client build:server compress:assets",
+    "build": "cross-env NODE_ENV=production npm-run-all prebuild build:client build:server compress:assets",
     "deploy": "npm-run-all build rsync clean:build clean:build-ts",
-    "production:start": "cross-env NODE_ENV=production node --experimental-modules build/server.js",
+    "production:start": "node --experimental-modules build/server.js",
     "start": "npm run production:start"
   },
   "dependencies": {
