@@ -1,7 +1,10 @@
-import { readdirSync, statSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { readdirSync, statSync, writeFileSync } from "fs";
+import { join } from "path";
 
-const baseDirectory = 'build/public'; 
+var baseDirectory = "build/public";
+if (process.env.NODE_ENV === "development") {
+  baseDirectory = "build-dev/public";
+}
 const outputFile = `${baseDirectory}/service-worker-urls.js`;
 
 function walkSync(directory, filelist = []) {
@@ -11,7 +14,7 @@ function walkSync(directory, filelist = []) {
     if (statSync(fullPath).isDirectory()) {
       walkSync(fullPath, filelist);
     } else {
-      filelist.push(fullPath.replace(baseDirectory + '/', ''));
+      filelist.push(fullPath.replace(baseDirectory + "/", ""));
     }
   });
 
