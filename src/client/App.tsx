@@ -1,9 +1,7 @@
-
-
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { About } from './routes/About';
-import { Home } from './routes/Home';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import { About } from "./routes/About";
+import { Home } from "./routes/Home";
 
 /**
  * Represents the main component of the client-side React application.
