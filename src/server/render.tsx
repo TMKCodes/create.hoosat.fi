@@ -27,7 +27,8 @@ export const Document = ({ url, lng }: { url: string; lng: Language }) => (
         <meta name="theme-color" content="#f7f8fb" media="(prefers-color-scheme: light)" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/logo.svg" type="image/svg+xml" />
-        <link rel="manifest" href="/manifest.json" />
+        {/* No <link rel="manifest">: the site is not an installable app, and the browser would fetch the
+            manifest right after the HTML, adding a request to the critical chain. theme-color covers the UI. */}
       </head>
       <body>
         <div id="root">
