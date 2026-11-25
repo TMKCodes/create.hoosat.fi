@@ -55,6 +55,10 @@ router.Get("*", async (req, res) => {
     publicDir,
     // Pass every field: the core renderer concatenates them and a missing one would print "NaN".
     headTags: { title: "", meta: "", link: "", script: "", base: "", style: "" },
+    // Inline styles.css into <head>: no render-blocking stylesheet request before the first paint.
+    inlineStyles: true,
+    // Stream the HTML compressed with Brotli or gzip, whichever the browser accepts.
+    acceptEncoding: req.headers['accept-encoding'],
   });
 });
 
