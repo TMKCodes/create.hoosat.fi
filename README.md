@@ -81,10 +81,10 @@ The server can also terminate TLS itself: set `PROTOCOL="HTTPS"`, `HTTPS_KEY` an
 
 ```sh
 docker build -t create-hoosat-fi .
-docker run -d -p 8181:8181 --restart unless-stopped create-hoosat-fi
+docker run -d -p 3070:3070 --restart unless-stopped create-hoosat-fi
 ```
 
-The image has a `HEALTHCHECK` on `/api/health`.
+The container listens on port 3070 and has a `HEALTHCHECK` on `/api/health`.
 
 ## License
 

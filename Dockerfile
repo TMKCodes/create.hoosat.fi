@@ -11,12 +11,12 @@ RUN npm run build
 FROM node:24-alpine
 WORKDIR /app
 ENV NODE_ENV=production \
-    PORT=8181
+    PORT=3070
 COPY --from=build /app/package.json ./
 COPY --from=build /app/build ./build
 # The server writes .nonce into the working directory and refreshes build/public/sitemap.xml.
 RUN chown -R node:node /app
 USER node
-EXPOSE 8181
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s CMD wget -qO- http://127.0.0.1:8181/api/health || exit 1
+EXPOSE 3070
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s CMD wget -qO- http://127.0.0.1:3070/api/health || exit 1
 CMD ["node", "build/server.js"]

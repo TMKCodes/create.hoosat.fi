@@ -164,5 +164,5 @@ Server is running on port 8181
 
 export const dockerSnippet = `
 $ docker build -t create-hoosat-fi .
-$ docker run -d -p 8181:8181 --restart unless-stopped create-hoosat-fi
+$ docker run -d -p 3070:3070 --restart unless-stopped create-hoosat-fi
 `;
