@@ -20,23 +20,26 @@ export const routes: RouteObject[] = [
 
 /**
  * Scrolls to the top (or to the #hash target) after client side navigation.
- * The first render is skipped so the browser's own scroll restoration keeps working on page load.
+ * It only acts when the location really changed, so it never runs on page load (where the browser's
+ * own scroll restoration should win), not even when StrictMode runs effects twice in development.
+ * Scrolling makes the browser compute layout, so doing it on load would be a forced reflow.
  */
 const useScrollOnNavigate = () => {
   const { pathname, hash } = useLocation();
-  const firstRender = useRef(true);
+  const location = `${pathname}${hash}`;
+  const previous = useRef(location);
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
+    if (previous.current === location) {
       return;
     }
+    previous.current = location;
     const target = hash ? document.getElementById(decodeURIComponent(hash.slice(1))) : null;
     if (target) {
       target.scrollIntoView();
     } else {
       window.scrollTo(0, 0);
     }
-  }, [pathname, hash]);
+  }, [location, pathname, hash]);
 };
 
 /**

@@ -17,6 +17,12 @@ export default (_env, argv) => {
       publicPath: "/",
       // Must match webpack.server.config.js so server rendered asset URLs equal the client ones.
       assetModuleFilename: "assets/[contenthash][ext]",
+      // The core renderer adds a <script> for every bundle.*.js in the public folder, so bundles left over
+      // from earlier dev rebuilds would run next to the new ones. Remove them on every build, but keep the
+      // static files and styles.css that the build scripts copy into the same folder before webpack runs.
+      clean: {
+        keep: (asset) => !/^bundle\./.test(asset),
+      },
     },
     experiments: {
       outputModule: true,
