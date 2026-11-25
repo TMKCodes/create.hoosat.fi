@@ -48,7 +48,7 @@ git version 2.55.0
 export const createSnippet = `
 $ npx hoosat-create@latest
 # or answer the questions up front:
-$ npx hoosat-create@latest --destination my-site --author "Your Name" --license MIT --gitInit Y --hoosatui n
+$ npx hoosat-create@latest --destination my-site --author "Your Name" --license MIT --gitInit Y
 `;
 
 export const devSnippet = `

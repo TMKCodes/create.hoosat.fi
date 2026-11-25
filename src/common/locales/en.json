@@ -42,7 +42,7 @@
     "i18n": { "title": "Built-in i18n", "body": "i18next and react-i18next are wired in on both sides. This site renders English or Finnish per request. Try the switch in the header." },
     "security": { "title": "Secure defaults", "body": "A Content-Security-Policy header with a nonce, path traversal safe static files, and an .npmrc that only installs packages public for 7 days." },
     "testing": { "title": "Tests from day one", "body": "Jest 30 and Testing Library come configured, with example tests for the server core. Run npm test and npm run typecheck in CI." },
-    "ui": { "title": "Optional HoosatUI", "body": "Add the HoosatUI component library as a git submodule while scaffolding, or bring your own design system. Nothing is forced on you." }
+    "dev": { "title": "Fast dev loop", "body": "npm run dev rebuilds the client and the server whenever you save and restarts the server with nodemon, so changes show up in seconds." }
   },
   "flow": {
     "title": "How a request becomes a page",
@@ -105,7 +105,7 @@
     "create": {
       "title": "Create the project",
       "p1": "Run the generator and answer its questions, or pass the answers as arguments:",
-      "p2": "The script clones `hoosat-template` with the `hoosat-server-core` submodule, writes your details into `package.json`, runs `npm install` and can prepare git and HoosatUI for you."
+      "p2": "The script clones `hoosat-template` with the `hoosat-server-core` submodule, writes your details into `package.json`, runs `npm install` and can initialise a git repository for you."
     },
     "dev": {
       "title": "Start the dev server",

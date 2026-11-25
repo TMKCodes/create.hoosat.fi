@@ -11,7 +11,6 @@ export const site = {
     cli: "https://github.com/TMKCodes/hoosat-create",
     template: "https://github.com/TMKCodes/hoosat-template",
     serverCore: "https://github.com/TMKCodes/hoosat-server-core",
-    hoosatUI: "https://github.com/TMKCodes/HoosatUI",
     npm: "https://www.npmjs.com/package/hoosat-create",
     discord: "https://discord.gg/UXPFcPaPBg",
     company: "https://hoosat.fi",

@@ -42,7 +42,7 @@
     "i18n": { "title": "Sisäänrakennettu i18n", "body": "i18next ja react-i18next on kytketty molemmille puolille. Tämä sivusto renderöidään englanniksi tai suomeksi pyynnön mukaan. Kokeile kielivalintaa ylhäällä." },
     "security": { "title": "Turvalliset oletukset", "body": "Content-Security-Policy-otsake noncella, polkujen ohitukselta suojattu tiedostojako ja .npmrc, joka asentaa vain vähintään 7 päivää julkisina olleita paketteja." },
     "testing": { "title": "Testit ensimmäisestä päivästä", "body": "Jest 30 ja Testing Library on valmiiksi konfiguroitu, ja palvelimen ytimelle on esimerkkitestit. Aja npm test ja npm run typecheck CI:ssä." },
-    "ui": { "title": "Valinnainen HoosatUI", "body": "Lisää HoosatUI-komponenttikirjasto git-alimoduulina projektia luodessa tai käytä omaa design-järjestelmääsi. Mitään ei pakoteta." }
+    "dev": { "title": "Nopea kehityssykli", "body": "npm run dev kääntää asiakkaan ja palvelimen aina kun tallennat ja käynnistää palvelimen uudelleen nodemonilla, joten muutokset näkyvät sekunneissa." }
   },
   "flow": {
     "title": "Miten pyynnöstä tulee sivu",
@@ -105,7 +105,7 @@
     "create": {
       "title": "Luo projekti",
       "p1": "Aja generaattori ja vastaa sen kysymyksiin, tai anna vastaukset argumentteina:",
-      "p2": "Skripti kloonaa `hoosat-template`-pohjan ja `hoosat-server-core`-alimoduulin, kirjoittaa tietosi `package.json`-tiedostoon, ajaa `npm install` -komennon ja voi valmistella gitin ja HoosatUI:n puolestasi."
+      "p2": "Skripti kloonaa `hoosat-template`-pohjan ja `hoosat-server-core`-alimoduulin, kirjoittaa tietosi `package.json`-tiedostoon, ajaa `npm install` -komennon ja voi alustaa git-repositorion puolestasi."
     },
     "dev": {
       "title": "Käynnistä kehityspalvelin",

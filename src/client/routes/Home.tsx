@@ -10,7 +10,7 @@ import { site } from "../../common/site";
 import { serverSnippet, terminalSnippet } from "../content/snippets";
 
 const proofKeys = ["command", "express", "compression", "typescript"] as const;
-const featureKeys = ["ssr", "router", "seo", "compression", "typescript", "i18n", "security", "testing", "ui"] as const;
+const featureKeys = ["ssr", "router", "seo", "compression", "typescript", "i18n", "security", "testing", "dev"] as const;
 const flowKeys = ["request", "middleware", "route", "render", "head", "hydrate"] as const;
 const stack = [
   ["React", "19"],
@@ -33,7 +33,7 @@ const featureGlyphs: Record<(typeof featureKeys)[number], string> = {
   i18n: "M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18",
   security: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4",
   testing: "M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3",
-  ui: "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z",
+  dev: "M20 12a8 8 0 1 1-2.34-5.66M20 4v5h-5",
 };
 
 export const Home = () => {
