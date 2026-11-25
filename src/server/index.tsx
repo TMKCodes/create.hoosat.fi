@@ -1,26 +1,18 @@
-import React from 'react';
-import App from '../client/App';
 import dotenv from 'dotenv';
-import { StaticRouter } from 'react-router';
-import { I18nextProvider } from 'react-i18next';
-import i18n from './core/i18n';
-import { cors } from './core/cors';
 import { createRouter, createServer, listen } from './core/server';
 import { assets } from './core/assets';
-import { upload } from './core/upload';
 import { renderer } from './core/renderer';
 import { DEBUG } from './core/errors';
-import { APIRouter } from './api-routes';
 import { writeNonceToFile } from './core/nonce';
-
+import { APIRouter } from './api-routes';
+import { seoFiles } from './seo-files';
+import { Document, isNotFound } from './render';
+import { pickLanguage } from '../common/i18n';
 
 dotenv.config();
 
 const isDevelopment = process.argv[2] === "development";
-let publicDir = "./build/public";
-if (isDevelopment) {
-  publicDir = "./build-dev/public";
-}
+const publicDir = isDevelopment ? "./build-dev/public" : "./build/public";
 
 writeNonceToFile();
 
@@ -28,86 +20,48 @@ writeNonceToFile();
 const router = createRouter();
 
 /**
- * Middleware to handle CORS for allowed origins and HTTP methods.
- * @function
- * @param {string} origins - The allowed origins, separated by commas.
- * @param {string} methods - The allowed HTTP methods, separated by commas.
+ * Middlewares run in the order they are registered, before any route.
+ * 1. robots.txt and sitemap.xml are generated from src/common/site.ts.
+ * 2. Static files are served from the public directory, precompressed when the browser allows it.
+ *
+ * The template also registers `cors()` and `upload()`. This site only serves same-origin pages and
+ * accepts no files, so both are left out on purpose.
  */
-router.Middleware(cors(process.env.ORIGINS || "localhost:8080", 'GET, POST, PUT, DELETE'));
-
-/**
- * Middleware to serve static files from the "public" directory.
- * @function
- * @param {string} publicDir - The path to the "public" directory.
- */
+router.Middleware(seoFiles());
 router.Middleware(assets(publicDir));
 
-/**
- * Middleware to handle multipart/form-data file uploading.
- * @function
- * @param {string} publicDir - The path to the "public" directory for uploads.
- */
-router.Middleware(upload(`${publicDir}/uploads`));
-
-/**
- * POST route to handle file uploads.
- * @function
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- */
-router.Post('/api/upload', (req, res) => {
-  // Access the uploaded files through req.files
-  console.log(req.files);
-  // Since the file upload was handled globally by middleware send a response.
-  res.status(200).json({ result: "success", files: req.files });
-});
-
+// API routes: /api/ping, /api/ping/:id and /api/health.
 router.UseRouter(APIRouter);
 DEBUG.log("APIRouter added.");
 
 /**
- * GET route to handle all other requests.
- * @function
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
+ * Every other GET request is a page: pick the language, render React and stream the HTML.
  */
 router.Get("*", async (req, res) => {
-  /**
-   * Represents the JSX element for the server-side rendering.
-   * @type {React.JSX.Element}
-   */
-  const jsx: React.JSX.Element = 
-        <I18nextProvider i18n={i18n}>
-          <html lang="FI-fi">
-            <head>
-              <meta charSet="utf-8" />
-              <link rel="icon" href="favicon.ico" />
-              <meta name="viewport" content="width=device-width, initial-scale=1" />
-              <link rel="manifest" href="manifest.json" />
-            </head>
-            <body>
-              <div id="root">
-                <StaticRouter location={req.url!}>
-                  <App />
-                </StaticRouter>
-              </div>
-            </body>
-          </html>
-        </I18nextProvider>
+  const url = req.url ?? "/";
+  const lng = pickLanguage(req.headers.cookie, req.headers['accept-language']);
+  if (isNotFound(url)) {
+    // Unknown URLs still render the friendly 404 page, but with a status search engines understand.
+    res.status(404);
+  }
+  res.setHeader('Content-Language', lng);
+  res.setHeader('Vary', 'Cookie, Accept-Language');
   renderer({
-    res: res, 
-    jsx: jsx, 
-    publicDir: publicDir,
-    headTags: {}
+    res,
+    jsx: <Document url={url} lng={lng} />,
+    publicDir,
+    // Pass every field: the core renderer concatenates them and a missing one would print "NaN".
+    headTags: { title: "", meta: "", link: "", script: "", base: "", style: "" },
   });
 });
 
+// Create the server. Set PROTOCOL="HTTPS" with HTTPS_KEY and HTTPS_CERT to terminate TLS here.
+const server = createServer(router, {
+  protocol: process.env.PROTOCOL || "HTTP",
+  https: { key: process.env.HTTPS_KEY, cert: process.env.HTTPS_CERT },
+});
 
-// Create the server
-const server = createServer(router);
-
-// Start listening on port 8080
-const port = parseInt(process.env.PORT || "8080");
+const port = parseInt(process.env.PORT || "8181");
 listen(server, port, () => {
   console.log(`Server is running on port ${port}`);
 });

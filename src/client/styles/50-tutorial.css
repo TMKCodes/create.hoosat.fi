@@ -1,0 +1,145 @@
+.page-hero {
+  padding: clamp(56px, 7vw, 88px) 0 40px;
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(600px 300px at 10% 0%, var(--glow-1), transparent 70%),
+    radial-gradient(600px 300px at 90% 0%, var(--glow-2), transparent 70%);
+}
+
+.page-hero h1 {
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  max-width: 820px;
+}
+
+.page-hero .button {
+  margin-top: 8px;
+}
+
+.tutorial {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 64px;
+  padding-top: 48px;
+  padding-bottom: 96px;
+}
+
+.toc {
+  position: relative;
+}
+
+.toc nav {
+  position: sticky;
+  top: calc(var(--header-height) + 24px);
+}
+
+.toc h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.toc ol {
+  list-style: none;
+  margin: 0;
+  display: grid;
+  gap: 2px;
+  counter-reset: toc;
+}
+
+.toc li {
+  counter-increment: toc;
+}
+
+.toc a {
+  display: block;
+  padding: 6px 10px;
+  border-left: 2px solid var(--border);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.93rem;
+}
+
+.toc a::before {
+  content: counter(toc) ". ";
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.toc a:hover {
+  color: var(--text);
+  border-left-color: var(--accent);
+}
+
+.steps {
+  max-width: 760px;
+  min-width: 0;
+}
+
+.step {
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.step:last-child {
+  border-bottom: 0;
+}
+
+.step h2 {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: clamp(1.4rem, 2.4vw, 1.75rem);
+}
+
+.step p {
+  color: var(--text-muted);
+  font-size: 1.04rem;
+}
+
+.step p code {
+  color: var(--text);
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .tutorial {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .toc nav {
+    position: static;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-elevated);
+  }
+}
+
+/* 404 */
+
+.not-found {
+  border-bottom: 0;
+  padding-bottom: 120px;
+}
+
+.not-found code {
+  font-size: 0.95rem;
+}

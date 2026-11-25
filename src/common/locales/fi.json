@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "homeTitle": "Hoosat Create · React SSR ilman frameworkia",
+    "homeDescription": "Luo täyden pinon React 19- ja TypeScript-sovellus, joka striimaa palvelinrenderöityä HTML:ää pienestä, Expressittömästä Node.js-palvelimesta. Yksi komento: npx hoosat-create@latest.",
+    "tutorialTitle": "Opas · Rakenna ja julkaise sivusto Hoosat Createllä",
+    "tutorialDescription": "Vaiheittainen opas tyhjästä kansiosta julkaistuun, palvelimella renderöityyn React-sivustoon Hoosat Createllä. Samoilla vaiheilla rakennettiin create.hoosat.fi.",
+    "notFoundTitle": "Sivua ei löytynyt · Hoosat Create"
+  },
+  "nav": {
+    "skip": "Siirry sisältöön",
+    "home": "Hoosat Create etusivu",
+    "features": "Ominaisuudet",
+    "howItWorks": "Toiminta",
+    "tutorial": "Opas",
+    "github": "GitHub",
+    "language": "Kieli"
+  },
+  "hero": {
+    "eyebrow": "Avointa lähdekoodia · React 19 · Node.js 22, 24 ja 26",
+    "titleStart": "React-palvelinrenderöinti",
+    "titleAccent": "ilman frameworkia.",
+    "lead": "Hoosat Create luo täyden pinon React- ja TypeScript-sovelluksen, joka striimaa HTML:ää pienestä ja kevyistä riippuvuuksista koostuvasta Node.js-palvelimesta. Ei Expressiä eikä taikuutta, vain koodia jonka voit lukea ja omistaa.",
+    "primary": "Lue opas",
+    "secondary": "Tähditä GitHubissa",
+    "copy": "Kopioi komento",
+    "copied": "Kopioitu!"
+  },
+  "proof": {
+    "command": { "value": "1", "label": "komento toimivaan SSR-sovellukseen" },
+    "express": { "value": "0", "label": "Express- tai Babel-riippuvuutta" },
+    "compression": { "value": "3", "label": "valmiiksi pakattua muotoa: br, gzip, deflate" },
+    "typescript": { "value": "100 %", "label": "TypeScriptiä, myös build-työkalut" }
+  },
+  "features": {
+    "title": "Kaikki mitä tuotantosivusto tarvitsee, ei mitään ylimääräistä",
+    "lead": "Pohja on lähtökohta, jonka kopioit itsellesi, ei framework josta olet riippuvainen. Jokainen alla oleva ominaisuus on tavallista koodia omassa repositoriossasi.",
+    "ssr": { "title": "Striimaava SSR", "body": "Sivut renderöidään React 19:n renderToPipeableStreamilla, joten selain saa ensin oikeaa HTML:ää ja hydratoi sen sitten interaktiiviseksi sovellukseksi." },
+    "router": { "title": "Reititin jonka voit lukea", "body": "Palvelimen ydin on muutama sata riviä TypeScriptiä Noden http- ja https-moduulien päällä: middlewaret, :parametrit, jokerimerkit ja yhdisteltävät reitittimet." },
+    "seo": { "title": "SEO heti ensimmäisissä tavuissa", "body": "React-helmet-asyncilla kirjoitetut otsikot, metatiedot, Open Graph ja JSON-LD striimataan headiin, joten hakukoneet näkevät ne ilman JavaScriptiä." },
+    "compression": { "title": "Valmiiksi pakatut tiedostot", "body": "Build kirjoittaa jokaisesta julkisesta tiedostosta Brotli-, gzip- ja deflate-version. Palvelin valitsee sopivan Accept-Encodingin mukaan ja asettaa pitkät välimuistiotsakkeet." },
+    "typescript": { "title": "TypeScriptiä kaikkialla", "body": "Tiukka TypeScript 6 asiakkaalle, palvelimelle ja jaetulle koodille. Myös build-työkalut ovat .ts-tiedostoja, jotka Node ajaa suoraan tyyppien poistolla." },
+    "i18n": { "title": "Sisäänrakennettu i18n", "body": "i18next ja react-i18next on kytketty molemmille puolille. Tämä sivusto renderöidään englanniksi tai suomeksi pyynnön mukaan. Kokeile kielivalintaa ylhäällä." },
+    "security": { "title": "Turvalliset oletukset", "body": "Content-Security-Policy-otsake noncella, polkujen ohitukselta suojattu tiedostojako ja .npmrc, joka asentaa vain vähintään 7 päivää julkisina olleita paketteja." },
+    "testing": { "title": "Testit ensimmäisestä päivästä", "body": "Jest 30 ja Testing Library on valmiiksi konfiguroitu, ja palvelimen ytimelle on esimerkkitestit. Aja npm test ja npm run typecheck CI:ssä." },
+    "ui": { "title": "Valinnainen HoosatUI", "body": "Lisää HoosatUI-komponenttikirjasto git-alimoduulina projektia luodessa tai käytä omaa design-järjestelmääsi. Mitään ei pakoteta." }
+  },
+  "flow": {
+    "title": "Miten pyynnöstä tulee sivu",
+    "lead": "Yksi pyyntö pinon läpi, socketista interaktiiviseksi sivuksi. Jokainen vaihe on tiedosto, jonka voit avata.",
+    "request": { "title": "Pyyntö", "body": "Noden http- tai https-palvelin vastaanottaa pyynnön, ja URL puhdistetaan polkujen ohitusyrityksiltä." },
+    "middleware": { "title": "Middlewaret", "body": "Middlewaret ajetaan järjestyksessä. Tällä sivustolla: robots.txt ja sitemap.xml, sitten valmiiksi pakatut staattiset tiedostot." },
+    "route": { "title": "Reitit", "body": "API-reitit kuten /api/ping/:id vastaavat suoraan. Kaikki muu päätyy *-reitille." },
+    "render": { "title": "React-renderöinti", "body": "*-reitti valitsee kielen, renderöi <App />:n StaticRouterin sisällä ja striimaa sen asiakkaalle." },
+    "head": { "title": "Headin täydennys", "body": "Muunnosvirta kirjoittaa Helmetin tagit, preload-linkit ja bundlet headiin samalla kun HTML virtaa ulos." },
+    "hydrate": { "title": "Hydratointi", "body": "Selaimessa hydrateRoot liittää Reactin valmiiseen merkintään. Tästä eteenpäin navigointi tapahtuu selaimessa." }
+  },
+  "code": {
+    "title": "Palvelimesi on vain tiedosto",
+    "lead": "src/server/index.tsx on koko palvelin. Middlewaret ja reitit ovat tavallisia funktioita. Tämä on lyhennetty versio tiedostosta, joka tarjoilee tämän sivun.",
+    "fileLabel": "src/server/index.tsx"
+  },
+  "stack": {
+    "title": "Ajantasainen, tylsä, tuettu",
+    "lead": "Jokainen riippuvuus on uusimmassa pääversiossaan, ja pohja on testattu kaikilla tuetuilla Node.js LTS -versioilla."
+  },
+  "demo": {
+    "title": "Juttele palvelimen kanssa",
+    "lead": "Tämä painike kutsuu /api/ping-reittiä, joka on määritelty kansiossa src/server/api-routes. Itse sivu renderöitiin palvelimella: ota JavaScript pois päältä ja lataa uudelleen, sisältö pysyy samana.",
+    "button": "Lähetä ping",
+    "pending": "Lähetetään…",
+    "idle": "Odottaa klikkaustasi.",
+    "result": "Palvelin vastasi ”{{reply}}” {{ms}} ms:ssa.",
+    "error": "Palvelin ei vastannut."
+  },
+  "cta": {
+    "title": "Aloita seuraava sivustosi yhdellä komennolla",
+    "lead": "Aja komento, vastaa muutamaan kysymykseen ja avaa http://localhost:8181. Opas neuvoo loput.",
+    "primary": "Lue opas",
+    "secondary": "Selaa tämän sivuston lähdekoodia"
+  },
+  "footer": {
+    "tagline": "Hoosat Oy:n React SSR -pino. Tämä sivusto on tehty Hoosat Createllä.",
+    "project": "Projekti",
+    "community": "Yhteisö",
+    "source": "Tämän sivuston lähdekoodi",
+    "cli": "hoosat-create CLI",
+    "template": "Pohja",
+    "core": "Palvelimen ydin",
+    "npm": "npm-paketti",
+    "discord": "Discord",
+    "company": "Hoosat Oy",
+    "license": "MIT-lisenssi."
+  },
+  "tutorial": {
+    "eyebrow": "Opas",
+    "title": "Rakenna ja julkaise sivusto Hoosat Createllä",
+    "lead": "Tämä opas vie sinut tyhjästä kansiosta julkaistuun, palvelimella renderöityyn React-sivustoon. Juuri näin create.hoosat.fi tehtiin, ja jokainen koodiesimerkki on sen lähdekoodista.",
+    "toc": "Tällä sivulla",
+    "source": "Katso koko lähdekoodi GitHubissa",
+    "prereq": {
+      "title": "Ennen kuin aloitat",
+      "p1": "Tarvitset Node.js:n version 22, 24 tai 26 sekä gitin. Tarkista versiot:",
+      "p2": "Vanhemmat Node.js-versiot eivät pysty ajamaan build-työkaluja, jotka ovat suoraan Nodella ajettavia TypeScript-tiedostoja."
+    },
+    "create": {
+      "title": "Luo projekti",
+      "p1": "Aja generaattori ja vastaa sen kysymyksiin, tai anna vastaukset argumentteina:",
+      "p2": "Skripti kloonaa `hoosat-template`-pohjan ja `hoosat-server-core`-alimoduulin, kirjoittaa tietosi `package.json`-tiedostoon, ajaa `npm install` -komennon ja voi valmistella gitin ja HoosatUI:n puolestasi."
+    },
+    "dev": {
+      "title": "Käynnistä kehityspalvelin",
+      "p1": "`npm run dev` kääntää projektin kansioon `build-dev`, käynnistää palvelimen ja kääntää uudelleen aina kun tallennat tiedoston kansioissa `src` tai `public`.",
+      "p2": "Avaa `http://localhost:8181`. Portti tulee `.env`-tiedoston `PORT`-arvosta."
+    },
+    "layout": {
+      "title": "Tutustu rakenteeseen",
+      "p1": "Kaikki on kansiossa `src`, jaettuna sen mukaan missä koodi ajetaan:",
+      "p2": "`src/server/core` on kaikkien Hoosat-projektien jakama git-alimoduuli. Päivitä se komennolla `git submodule update --remote` sen sijaan että muokkaisit sitä paikallaan."
+    },
+    "page": {
+      "title": "Lisää sivu",
+      "p1": "Sivut ovat tavallisia React-komponentteja. Luo sellainen kansioon `src/client/routes`:",
+      "p2": "Lisää se sitten reittilistaan tiedostossa `src/client/App.tsx`. Selaimen reititin ja palvelin jakavat saman listan, ja palvelin käyttää sitä vastatakseen tuntemattomiin osoitteisiin oikealla 404-tilakoodilla."
+    },
+    "api": {
+      "title": "Lisää API-reitti",
+      "p1": "API-reitit käyttävät ytimen reititintä. Luo reititin, lisää käsittelijät ja liitä se tiedostossa `src/server/api-routes/index.ts`:",
+      "p2": "Polkuparametrit löytyvät kentästä `req.params`, ja `res.status()`, `res.send()` sekä `res.json()` riittävät useimpiin vastauksiin."
+    },
+    "seo": {
+      "title": "Aseta otsikot ja metatiedot",
+      "p1": "Laita head-tagit `<Helmet>`-komponentin sisään missä tahansa sivulla. Palvelimella renderöijä striimaa ne `<head>`-osioon ennen bodya, joten hakukoneet ja linkkien esikatselut näkevät ne ilman JavaScriptiä.",
+      "p2": "Tämä sivusto pitää kaiken yhdessä `Seo`-komponentissa, joka kirjoittaa myös kanonisen osoitteen, Open Graph -tagit ja JSON-LD:n."
+    },
+    "style": {
+      "title": "Tyylittele",
+      "p1": "Lisää tavallisia `.css`-tiedostoja mihin tahansa kansion `src/client` alle. Build yhdistää ja pienentää ne tiedostoksi `/public/styles.css`, jonka renderöijä linkittää jokaiselle sivulle. Importteja ei tarvita.",
+      "p2": "Tämä sivusto määrittelee värinsä CSS-muuttujina, joten tumma ja vaalea teema ovat yksi media query."
+    },
+    "i18n": {
+      "title": "Käännä",
+      "p1": "Pohjassa on i18next molemmilla puolilla. Tämä sivusto valitsee kielen pyyntökohtaisesti evästeestä tai `Accept-Language`-otsakkeesta:",
+      "p2": "Käännökset on paketoitu mukaan ja alustetaan synkronisesti, joten palvelin ja selain tuottavat identtisen merkinnän eikä hydratointi koskaan välähdä kääntämättömiä avaimia."
+    },
+    "test": {
+      "title": "Testaa",
+      "p1": "Testit ovat kansiossa `src/__tests__` ja ne ajetaan Jestillä. Tyyppitarkista koko projekti erikseen:",
+      "p2": "Tämän sivuston testit kattavat kielen valinnan, sitemapin, 404-käsittelyn, kokonaisen palvelinrenderöinnin ja sen, että molemmissa kielissä on samat avaimet."
+    },
+    "deploy": {
+      "title": "Käännä ja julkaise",
+      "p1": "`npm run build` kirjoittaa tuotantoversion kansioon `build`, mukaan lukien valmiiksi pakatut versiot jokaisesta tiedostosta. Webpack paketoi palvelimen ja sen riippuvuudet tiedostoon `build/server.js`, joten tuotannossa tarvitaan vain tuo kansio:",
+      "p2": "Laita palvelin käänteisen välityspalvelimen kuten Caddyn tai nginxin taakse TLS:ää varten, tai aja se konttina repositorion Dockerfilellä:",
+      "p3": "Siinä kaikki: palvelimella renderöity React-sivusto tuotannossa, rakennettuna koodista jonka ymmärrät."
+    }
+  },
+  "notFound": {
+    "eyebrow": "404",
+    "title": "Sivua ei löytynyt",
+    "body": "Tätä osoitetta ei ole olemassa, ja palvelin kertoi sen oikealla 404-tilakoodilla eikä pehmeällä 200:lla.",
+    "home": "Takaisin etusivulle"
+  }
+}

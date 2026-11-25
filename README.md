@@ -1,192 +1,91 @@
-Hoosat Create is a full-stack server-side rendered (SSR) TypeScript React stack designed to provide a seamless development experience with a clear separation between the client and server. Developed by Hoosat Oy, this stack offers a robust set of features to accelerate web application development.
+# create.hoosat.fi
 
-## Features
+The source of [create.hoosat.fi](https://create.hoosat.fi), the website of Hoosat Create, and a working tutorial of the stack it advertises. The site was scaffolded with `npx hoosat-create@latest` and then turned into a real, server-rendered marketing site. Every step is in the commit history and explained on the [tutorial page](https://create.hoosat.fi/tutorial).
 
-- **Full-Stack TypeScript Application:** Hoosat Create leverages the power of TypeScript throughout the entire application stack, from the frontend to the backend, ensuring type safety and improved developer productivity.
-- **Server-Side SEO with react-helmet-async:** The stack includes server-side SEO capabilities using react-helmet-async, allowing you to manage and control the document head and meta tags for search engine optimization.
-- **ES Modules Only:** Hoosat Create supports ECMAScript modules (ES modules) for both server-side and client-side code, enabling better code organization and modularity.
-- **Configured with Webpack:** The stack is pre-configured with Webpack for production builds, enabling efficient bundling, minification, and optimization of the code.
-- **Jest for Unit Testing:** Hoosat Create comes with Jest, a popular JavaScript testing framework, to facilitate unit testing for your application components.
-- **Example Components and Routes:** The stack includes pre-built example components and routes, providing a starting point for building your application.
-- **Optional Hoosat UI React Component Library:** As an optional dependency, Hoosat Create offers the Hoosat UI React component library, which you can use to enhance your application's user interface with pre-designed UI components.
+Hoosat Create is a full-stack server-side rendered (SSR) TypeScript React stack designed to provide a seamless development experience with a clear separation between the client and server. Developed by TMKCodes, this stack offers a robust set of features to accelerate web application development.
 
+## What this example shows
 
-## Requirements
+| Feature | Where to look |
+| --- | --- |
+| Streaming React 19 SSR with hydration | [src/server/index.tsx](src/server/index.tsx), [src/client/index.tsx](src/client/index.tsx) |
+| Routes shared by the browser and the server, real 404 status for unknown URLs | [src/client/App.tsx](src/client/App.tsx), [src/server/render.tsx](src/server/render.tsx) |
+| Titles, meta, canonical, Open Graph and JSON-LD with `react-helmet-async` | [src/client/components/Seo.tsx](src/client/components/Seo.tsx) |
+| A custom middleware: generated `robots.txt` and `sitemap.xml` | [src/server/seo-files.ts](src/server/seo-files.ts) |
+| API routes (`/api/ping`, `/api/health`) and a client calling them | [src/server/api-routes](src/server/api-routes), [src/client/components/PingDemo.tsx](src/client/components/PingDemo.tsx) |
+| Per-request language (English/Finnish) from a cookie or `Accept-Language`, without hydration mismatches | [src/common/i18n.ts](src/common/i18n.ts), [src/common/locales](src/common/locales) |
+| Plain CSS with design tokens and dark/light mode, merged into `/public/styles.css` by the build | [src/client/styles](src/client/styles) |
+| Jest tests that render the whole document on the server | [src/\_\_tests\_\_/site.test.tsx](src/__tests__/site.test.tsx) |
+| Container deployment | [Dockerfile](Dockerfile) |
 
-- Node.js 22.22.2+, 24.15+ or 26+ (a supported LTS line, see `.nvmrc`). Node.js 20 and older are end-of-life and not supported.
-- npm. The included `.npmrc` sets `min-release-age=7`, so npm only installs package versions that have been public for at least 7 days (supply-chain protection, supported by the npm 11 bundled with Node.js 24 and 26).
+## Run it locally
 
-## Getting started
+Requirements: Node.js 22, 24 or 26 and git.
 
-To create a new project using Hoosat Create, simply run the following command:
-```
-npx hoosat-create@latest
-```
-
-The npx script will prompt you with questions to configure your project, and it will generate the initial project structure for you.
-
-Once the project is created, navigate to the project directory:
-```
-cd project_name
-```
-
-To start the development server, use the following command:
-```
+```sh
+git clone --recursive https://github.com/TMKCodes/create.hoosat.fi.git
+cd create.hoosat.fi
+npm install
 npm run dev
 ```
 
-This command will build the development version of the client and server and run the server to serve both the client and API routes. The application will be accessible at `http://localhost:8181` (the `PORT` in `.env`) in your browser.
+Open http://localhost:8181. `--recursive` is needed because the server core, [hoosat-server-core](https://github.com/TMKCodes/hoosat-server-core), is a git submodule in `src/server/core`. If you already cloned without it, run `git submodule update --init`.
 
 ## Scripts
 
-All scripts are cross-platform (Linux, macOS and Windows). Build helpers in `build-tools/` are TypeScript files run directly with Node.js' built-in type stripping, no ts-node or other loader is needed.
+- `npm run dev`: builds into `build-dev`, starts the server and rebuilds on every change in `src` or `public`.
+- `npm run build`: production build into `build`, with Brotli, gzip and deflate copies of every public file.
+- `npm start`: runs the production build (`node build/server.js`).
+- `npm test`: Jest tests (run as native ES modules).
+- `npm run typecheck`: TypeScript type check.
 
-- `npm run dev`: Builds and runs the development version.
-  - `npm run dev:build`: Builds the client and server in development mode into `build-dev`.
-  - `npm run dev:watch`: Rebuilds with Nodemon when files in `src` or `public` change.
-  - `npm run dev:start`: Starts the server with Nodemon and restarts it when `build-dev/server.js` changes.
+## Build your own site the same way
 
-- `npm run build`: Builds the production version into `build`.
-  - This script sequentially executes `build:prepare`, `build:client`, `build:server` and `compress:assets`.
+```sh
+npx hoosat-create@latest
+cd my-site
+npm run dev
+```
 
-- `npm run start`: Runs the production version.
-  - This script starts the server using the compiled production files.
+Then follow the [tutorial](https://create.hoosat.fi/tutorial): add pages to the route list in `src/client/App.tsx`, API routes under `src/server/api-routes`, head tags with `<Helmet>`, and plain `.css` files anywhere under `src/client`.
 
-- `npm run test`: Runs test units with Jest.
+## What changed compared to the plain template
 
-- `npm run typecheck`: Type checks the project with TypeScript.
+- The `*` route renders a `Document` component per request with its own i18next instance, and answers unknown URLs with status 404.
+- Translations are bundled from `src/common/locales` and initialised synchronously on both sides, instead of being loaded with `i18next-fs-backend` / `i18next-http-backend`. The server and the first client render then produce identical markup.
+- `robots.txt` and `sitemap.xml` are generated by a middleware registered before the static files, with absolute URLs from [src/common/site.ts](src/common/site.ts).
+- The template's `cors()` and `upload()` middlewares are not used: the site only serves same-origin pages and accepts no uploads.
+- All `headTags` fields are passed to the core renderer. Leaving one out makes it print `NaN` into `<head>`.
+- Jest runs in ESM mode (`NODE_OPTIONS=--experimental-vm-modules`), because react-router 8 ships only ES modules.
+- `package-lock.json` is committed so `npm ci` and the Docker build are reproducible.
 
-- `npm run docs`: Generates API documentation with TypeDoc into `public/docs`.
+## Deploy
 
-## File structure
+`npm run build` produces everything production needs in `build/`: webpack bundles the server and its dependencies into `build/server.js`, and `build/public` holds the client bundles and static files. Copy `build/` and `package.json` to the server and run:
 
-- `src/client`: Contains client-side code (React components, styles, etc.).
-- `src/server`: Contains server-side code (Node HTTP/HTTPS routes, API routes, etc.).
-- `src/common`: Contains common code.
-- `public`: Contains public files for the project.
-- `build`: Contains build output of server and client, the `public` folder is moved into here.
+```sh
+PORT=8181 node build/server.js
+```
 
-
-## Basic example server
-
-File: `./src/server/index.tsx`
+Keep it running with your process manager of choice (systemd, pm2, a container) and put a reverse proxy in front of it for TLS. For example with Caddy:
 
 ```
-import React from 'react';
-import App from '../client/App';
-import { StaticRouter } from 'react-router';
-import { HelmetProvider } from 'react-helmet-async';
-
-
-import { I18nextProvider } from 'react-i18next';
-import i18n from './core/i18n';
-
-import { cors } from './core/cors';
-import { createRouter, createServer, listen } from './core/server';
-import { assets } from './core/assets';
-import { upload } from './core/upload';
-import { pingRouter } from './api-routes/ping';
-import { renderer } from './core/renderer';
-
-// Create a router
-const router = createRouter();
-
-router.UseRouter(pingRouter);
-
-/**
- * Middleware to handle CORS for allowed origins and HTTP methods.
- * @function
- * @param {string} origins - The allowed origins, separated by commas.
- * @param {string} methods - The allowed HTTP methods, separated by commas.
- */
-router.Middleware(cors(process.env.ORIGINS || "localhost:8080", 'GET, POST, PUT, DELETE'));
-
-/**
- * Middleware to serve static files from the "public" directory.
- * @function
- * @param {string} publicDir - The path to the "public" directory.
- */
-router.Middleware(assets(process.env.PUBLIC! || "./build/public"));
-
-/**
- * Middleware to handle multipart/form-data file uploading.
- * @function
- * @param {string} publicDir - The path to the "public" directory for uploads.
- */
-router.Middleware(upload(process.env.PUBLIC! || "./build/public/uploads"));
-
-/**
- * POST route to handle file uploads.
- * @function
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- */
-router.Post('/upload', (req, res) => {
-  // Access the uploaded files through req.files
-  console.log(req.files);
-  // Since the file upload was handled globally by middleware send a response.
-  res.status(200).json({ result: "success", files: req.files });
-});
-
-/**
- * GET route to handle all other requests.
- * @function
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- */
-router.Get("*", async (req, res) => {
-  const helmetContext = {};
-  /**
-   * Represents the JSX element for the server-side rendering.
-   * @type {React.JSX.Element}
-   */
-  const jsx = 
-    <React.StrictMode>
-      <I18nextProvider i18n={i18n}>
-        <HelmetProvider context={helmetContext}>
-          <html lang="FI-fi">
-            <head>
-              <meta charSet="utf-8" />
-              <link rel="icon" href="/logo/favicon.ico" />
-              <meta name="viewport" content="width=device-width, initial-scale=1" />
-              <link rel="manifest" href="/manifest.json" />
-            </head>
-            <body>
-              {/* Mounting the App component inside the StaticRouter */}
-              <div id="root">
-                <StaticRouter location={req.url!}>
-                  <App />
-                </StaticRouter>
-              </div>
-            </body>
-          </html>
-        </HelmetProvider>
-      </I18nextProvider>
-    </React.StrictMode>;
-  renderer({
-    res: res, 
-    jsx: jsx, 
-    helmetContext: helmetContext, 
-    extractCSS: true, 
-    preloadTagFolder: './build/public',
-    headTags: {}
-  });
-});
-
-
-// Create the server
-const server = createServer(router);
-
-// Start listening on port 8080
-const port = parseInt(process.env.PORT || "8080");
-listen(server, port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
+create.hoosat.fi {
+	reverse_proxy 127.0.0.1:8181
+}
 ```
+
+The server can also terminate TLS itself: set `PROTOCOL="HTTPS"`, `HTTPS_KEY` and `HTTPS_CERT` in `.env`.
+
+### Docker
+
+```sh
+docker build -t create-hoosat-fi .
+docker run -d -p 8181:8181 --restart unless-stopped create-hoosat-fi
+```
+
+The image has a `HEALTHCHECK` on `/api/health`.
 
 ## License
-This template is licensed under the MIT License. Feel free to use it for your own projects or as a starting point for your own templates.
 
-## Join us
-[https://discord.gg/UXPFcPaPBg](Discord)
+MIT. Join the community on [Discord](https://discord.gg/UXPFcPaPBg).

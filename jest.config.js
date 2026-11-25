@@ -1,13 +1,15 @@
-// This Jest configuration file exports an object with various properties to configure Jest for TypeScript and Node.js environment testing.
+// Jest configuration: TypeScript tests run as native ES modules in a Node.js environment.
+// The project is "type": "module" and react-router 8 ships only ES modules, so Jest runs in ESM mode
+// (`npm test` sets NODE_OPTIONS=--experimental-vm-modules) and ts-jest emits ES modules.
 export default {
-  // Use the ts-jest preset to transform TypeScript code to JavaScript for Jest.
-  preset: 'ts-jest',
-  // Use the Node.js test environment for running tests in a Node.js environment.
+  // Use the Node.js test environment, the same runtime the server uses.
   testEnvironment: 'node',
-  // Define the root directory for tests.
-  roots: ['<rootDir>/src', '<rootDir>/src/__tests__'],
-  // Define the test match pattern for Jest to find test files.
+  // Look for tests under src.
+  roots: ['<rootDir>/src'],
   testMatch: ['**/*.test.(ts|tsx)'],
-  // Define the file extensions that Jest will recognize.
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'mjs', 'jsx', 'json', 'node'],
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  transform: {
+    '^.+\.tsx?$': ['ts-jest', { useESM: true }],
+  },
 };

@@ -1,24 +1,23 @@
 {
   "type": "module",
-  "name": "hoosat-create",
+  "name": "create.hoosat.fi",
   "version": "1.0.0",
-  "description": "Hoosat Create is React SSR & CSR Stack made by Hoosat Oy",
-  "author": "",
-  "license": "MIT License",
-  "main": "index.js",
+  "description": "Marketing site and tutorial for the Hoosat Create React SSR stack",
+  "author": "TMKCodes",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Hoosat-Oy/hoosat-template/issues"
+    "url": "https://github.com/TMKCodes/create.hoosat.fi/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Hoosat-Oy/hoosat-template"
+    "url": "https://github.com/TMKCodes/create.hoosat.fi"
   },
   "engines": {
     "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
   },
   "scripts": {
     "rsync": "rsync -rPz --delete ./build ./package.json YOURSERVER:~FOLDER",
-    "test": "jest",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "typecheck": "tsc --noEmit",
     "docs": "typedoc",
     "clean:build-dev": "node build-tools/fs.ts rm build-dev",
@@ -60,9 +59,7 @@
     "dotenv": "^18.0.10",
     "formidable": "^3.5.4",
     "i18next": "^27.1.5",
-    "i18next-browser-languagedetector": "^8.3.1",
     "i18next-fs-backend": "^2.6.12",
-    "i18next-http-backend": "^4.0.10",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-helmet-async": "^3.1.0",
@@ -101,5 +98,11 @@
     "glob": "^14.0.6",
     "minimatch": "^11.0.9"
   },
-  "keywords": []
+  "keywords": [
+    "react",
+    "ssr",
+    "typescript",
+    "hoosat"
+  ],
+  "homepage": "https://create.hoosat.fi"
 }

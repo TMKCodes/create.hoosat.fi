@@ -1,0 +1,63 @@
+/*
+ * Design tokens. Every .css file under src/client is merged into /public/styles.css in file name order,
+ * so this file comes first and the rest of the styles only use these variables.
+ */
+:root {
+  color-scheme: light dark;
+  --bg: #f7f8fb;
+  --bg-elevated: #ffffff;
+  --bg-alt: #eef1f6;
+  --text: #0e1525;
+  --text-muted: #4a5568;
+  --border: #dde2ea;
+  --border-strong: #c5ccd8;
+  --accent: #0b7a6e;
+  --accent-hover: #09665c;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgba(11, 122, 110, 0.1);
+  --violet: #6a4cf0;
+  --glow-1: rgba(52, 211, 191, 0.22);
+  --glow-2: rgba(139, 108, 255, 0.18);
+  --grid-line: rgba(14, 21, 37, 0.05);
+  --shadow: 0 1px 2px rgba(14, 21, 37, 0.06), 0 8px 24px rgba(14, 21, 37, 0.06);
+  --header-bg: rgba(247, 248, 251, 0.82);
+
+  /* Code blocks stay dark in both themes. */
+  --code-bg: #0d1220;
+  --code-border: #1d2638;
+  --code-text: #dfe5f0;
+  --code-muted: #7d89a1;
+  --code-keyword: #c3a6ff;
+  --code-string: #7fe3c8;
+  --code-tag: #8cc8ff;
+  --code-prompt: #34d3bf;
+
+  --radius: 14px;
+  --radius-small: 8px;
+  --container: 1160px;
+  --header-height: 64px;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0a0d14;
+    --bg-elevated: #111622;
+    --bg-alt: #0d111b;
+    --text: #e8ecf3;
+    --text-muted: #9aa5b8;
+    --border: #1e2636;
+    --border-strong: #2c3750;
+    --accent: #34d3bf;
+    --accent-hover: #5eead4;
+    --accent-contrast: #04211d;
+    --accent-soft: rgba(52, 211, 191, 0.12);
+    --violet: #9b87ff;
+    --glow-1: rgba(52, 211, 191, 0.16);
+    --glow-2: rgba(139, 108, 255, 0.16);
+    --grid-line: rgba(232, 236, 243, 0.04);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.35);
+    --header-bg: rgba(10, 13, 20, 0.78);
+  }
+}

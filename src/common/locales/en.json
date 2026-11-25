@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "homeTitle": "Hoosat Create · React SSR without the framework",
+    "homeDescription": "Scaffold a full-stack React 19 and TypeScript app that streams server-rendered HTML from a small, Express-free Node.js server. One command: npx hoosat-create@latest.",
+    "tutorialTitle": "Tutorial · Build and ship a site with Hoosat Create",
+    "tutorialDescription": "Step-by-step guide from an empty folder to a deployed, server-rendered React site with Hoosat Create. The same steps built create.hoosat.fi.",
+    "notFoundTitle": "Page not found · Hoosat Create"
+  },
+  "nav": {
+    "skip": "Skip to content",
+    "home": "Hoosat Create home",
+    "features": "Features",
+    "howItWorks": "How it works",
+    "tutorial": "Tutorial",
+    "github": "GitHub",
+    "language": "Language"
+  },
+  "hero": {
+    "eyebrow": "Open source · React 19 · Node.js 22, 24 & 26",
+    "titleStart": "React server rendering,",
+    "titleAccent": "without the framework.",
+    "lead": "Hoosat Create scaffolds a full-stack React and TypeScript app that streams HTML from a small, dependency-light Node.js server. No Express, no magic, just code you can read and own.",
+    "primary": "Read the tutorial",
+    "secondary": "Star on GitHub",
+    "copy": "Copy command",
+    "copied": "Copied!"
+  },
+  "proof": {
+    "command": { "value": "1", "label": "command to a running SSR app" },
+    "express": { "value": "0", "label": "Express or Babel dependencies" },
+    "compression": { "value": "3", "label": "precompressed formats: br, gzip, deflate" },
+    "typescript": { "value": "100%", "label": "TypeScript, build tools included" }
+  },
+  "features": {
+    "title": "Everything a production site needs, nothing it doesn't",
+    "lead": "The template is a starting point you copy, not a framework you depend on. Every feature below is plain code in your repository.",
+    "ssr": { "title": "Streaming SSR", "body": "Pages render with React 19's renderToPipeableStream, so the browser gets real HTML first and then hydrates it into an interactive app." },
+    "router": { "title": "A router you can read", "body": "The server core is a few hundred lines of TypeScript on Node's http and https modules: middlewares, :params, wildcards and composable routers." },
+    "seo": { "title": "SEO in the first bytes", "body": "Titles, meta, Open Graph and JSON-LD written with react-helmet-async are streamed into the head, so crawlers see them without running JavaScript." },
+    "compression": { "title": "Precompressed assets", "body": "The build writes Brotli, gzip and deflate copies of every public file. The server picks one by Accept-Encoding and sets long cache headers." },
+    "typescript": { "title": "TypeScript everywhere", "body": "Strict TypeScript 6 for client, server and shared code. Even the build tools are .ts files that Node runs directly with type stripping." },
+    "i18n": { "title": "Built-in i18n", "body": "i18next and react-i18next are wired in on both sides. This site renders English or Finnish per request. Try the switch in the header." },
+    "security": { "title": "Secure defaults", "body": "A Content-Security-Policy header with a nonce, path traversal safe static files, and an .npmrc that only installs packages public for 7 days." },
+    "testing": { "title": "Tests from day one", "body": "Jest 30 and Testing Library come configured, with example tests for the server core. Run npm test and npm run typecheck in CI." },
+    "ui": { "title": "Optional HoosatUI", "body": "Add the HoosatUI component library as a git submodule while scaffolding, or bring your own design system. Nothing is forced on you." }
+  },
+  "flow": {
+    "title": "How a request becomes a page",
+    "lead": "One request through the stack, from socket to interactive page. Each step is a file you can open.",
+    "request": { "title": "Request", "body": "Node's http or https server accepts the request, and the URL is sanitised against path traversal." },
+    "middleware": { "title": "Middlewares", "body": "Middlewares run in order. On this site: robots.txt and sitemap.xml, then precompressed static files." },
+    "route": { "title": "Routes", "body": "API routes such as /api/ping/:id answer directly. Everything else falls through to the * route." },
+    "render": { "title": "React render", "body": "The * route picks the language, renders <App /> inside a StaticRouter and streams it to the client." },
+    "head": { "title": "Head injection", "body": "A transform stream writes Helmet tags, preload links and the bundles into the head while the HTML streams out." },
+    "hydrate": { "title": "Hydration", "body": "In the browser hydrateRoot attaches React to the existing markup. From here on, navigation happens on the client." }
+  },
+  "code": {
+    "title": "Your server is just a file",
+    "lead": "src/server/index.tsx is the whole server. Middlewares and routes are plain functions. This is a trimmed version of the file that serves this page.",
+    "fileLabel": "src/server/index.tsx"
+  },
+  "stack": {
+    "title": "Current, boring, supported",
+    "lead": "Every dependency is on its latest major release, and the template is tested on all supported Node.js LTS lines."
+  },
+  "demo": {
+    "title": "Talk to the server",
+    "lead": "This button calls the /api/ping route from src/server/api-routes. The page itself was rendered on the server: turn JavaScript off and reload, it still reads the same.",
+    "button": "Send ping",
+    "pending": "Pinging…",
+    "idle": "Waiting for your click.",
+    "result": "Server replied “{{reply}}” in {{ms}} ms.",
+    "error": "The server did not answer."
+  },
+  "cta": {
+    "title": "Start your next site in one command",
+    "lead": "Run the command, answer a few questions and open http://localhost:8181. The tutorial walks you through the rest.",
+    "primary": "Read the tutorial",
+    "secondary": "Browse this site's source"
+  },
+  "footer": {
+    "tagline": "React SSR stack by Hoosat Oy. This site is built with Hoosat Create.",
+    "project": "Project",
+    "community": "Community",
+    "source": "Source of this site",
+    "cli": "hoosat-create CLI",
+    "template": "Template",
+    "core": "Server core",
+    "npm": "npm package",
+    "discord": "Discord",
+    "company": "Hoosat Oy",
+    "license": "MIT licensed."
+  },
+  "tutorial": {
+    "eyebrow": "Tutorial",
+    "title": "Build and ship a site with Hoosat Create",
+    "lead": "This walkthrough takes you from an empty folder to a deployed, server-rendered React site. It is exactly how create.hoosat.fi was made, and every code sample comes from its source.",
+    "toc": "On this page",
+    "source": "View the full source on GitHub",
+    "prereq": {
+      "title": "Before you start",
+      "p1": "You need Node.js 22, 24 or 26 and git. Check your versions:",
+      "p2": "Older Node.js versions can not run the build tools, which are TypeScript files executed directly by Node."
+    },
+    "create": {
+      "title": "Create the project",
+      "p1": "Run the generator and answer its questions, or pass the answers as arguments:",
+      "p2": "The script clones `hoosat-template` with the `hoosat-server-core` submodule, writes your details into `package.json`, runs `npm install` and can prepare git and HoosatUI for you."
+    },
+    "dev": {
+      "title": "Start the dev server",
+      "p1": "`npm run dev` builds into `build-dev`, starts the server and rebuilds whenever you save a file in `src` or `public`.",
+      "p2": "Open `http://localhost:8181`. The port comes from `PORT` in `.env`."
+    },
+    "layout": {
+      "title": "Find your way around",
+      "p1": "Everything lives in `src`, split by where the code runs:",
+      "p2": "`src/server/core` is a git submodule shared by every Hoosat project. Update it with `git submodule update --remote` instead of editing it in place."
+    },
+    "page": {
+      "title": "Add a page",
+      "p1": "Pages are ordinary React components. Create one under `src/client/routes`:",
+      "p2": "Then add it to the route list in `src/client/App.tsx`. The browser router and the server share that list, and the server uses it to answer unknown URLs with a real 404 status."
+    },
+    "api": {
+      "title": "Add an API route",
+      "p1": "API routes use the core router. Create a router, add handlers and mount it in `src/server/api-routes/index.ts`:",
+      "p2": "Path parameters are in `req.params`, and `res.status()`, `res.send()` and `res.json()` cover most responses."
+    },
+    "seo": {
+      "title": "Set titles and meta tags",
+      "p1": "Put head tags inside `<Helmet>` anywhere in a page. On the server the renderer streams them into `<head>` before the body, so search engines and link previews see them without JavaScript.",
+      "p2": "This site keeps all of it in one `Seo` component that also writes the canonical URL, Open Graph and JSON-LD tags."
+    },
+    "style": {
+      "title": "Style it",
+      "p1": "Drop plain `.css` files anywhere under `src/client`. The build merges and minifies them into `/public/styles.css`, which the renderer links in every page. No imports needed.",
+      "p2": "This site defines its colours as CSS custom properties, so dark and light mode are one media query."
+    },
+    "i18n": {
+      "title": "Translate it",
+      "p1": "The template ships i18next on both sides. This site picks the language per request, from a cookie or the `Accept-Language` header:",
+      "p2": "Translations are bundled and initialised synchronously, so the server and the browser produce identical markup and hydration never flashes untranslated keys."
+    },
+    "test": {
+      "title": "Test it",
+      "p1": "Tests live in `src/__tests__` and run with Jest. Type check the whole project separately:",
+      "p2": "This site's tests cover the language picker, the sitemap, the 404 handling, a full server render and that both languages have the same keys."
+    },
+    "deploy": {
+      "title": "Build and deploy",
+      "p1": "`npm run build` writes a production build into `build`, including precompressed copies of every asset. Webpack bundles the server and its dependencies into `build/server.js`, so production only needs that folder:",
+      "p2": "Put the server behind a reverse proxy such as Caddy or nginx for TLS, or run it as a container with the Dockerfile in the repository:",
+      "p3": "That's it: a server-rendered React site in production, built from code you understand."
+    }
+  },
+  "notFound": {
+    "eyebrow": "404",
+    "title": "Page not found",
+    "body": "This URL doesn't exist, and the server said so with a real 404 status code, not a soft 200.",
+    "home": "Back to the front page"
+  }
+}
