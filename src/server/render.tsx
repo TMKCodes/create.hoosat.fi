@@ -14,6 +14,12 @@ export const isNotFound = (url: string): boolean => {
 };
 
 /**
+ * Hides controls that need JavaScript (class "js-only") when scripting is off, so nothing on the page
+ * looks clickable without working. Added to <head> through the renderer's headTags.
+ */
+export const noScriptStyles = "<noscript><style>.js-only{display:none!important}</style></noscript>";
+
+/**
  * The full HTML document for one request. The bundles, styles and Helmet tags are added to <head>
  * by the core renderer while the document streams out.
  */

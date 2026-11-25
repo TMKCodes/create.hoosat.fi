@@ -30,7 +30,7 @@ export const CopyCommand = () => {
     <div className="command">
       <span className="command-prompt" aria-hidden="true">$</span>
       <code>{site.command}</code>
-      <button type="button" className="command-copy" onClick={copy} aria-label={t("hero.copy")} title={t("hero.copy")}>
+      <button type="button" className="command-copy js-only" onClick={copy} aria-label={t("hero.copy")} title={t("hero.copy")}>
         {copied ? <CheckIcon /> : <CopyIcon />}
       </button>
       <span className="visually-hidden" role="status">{copied ? t("hero.copied") : ""}</span>

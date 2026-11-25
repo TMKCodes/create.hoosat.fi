@@ -100,20 +100,23 @@
   border-radius: 999px;
 }
 
-.lang-switch button {
-  font: inherit;
+.lang-switch a {
+  display: inline-block;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.04em;
+  line-height: 1.6;
   padding: 4px 10px;
-  border: 0;
   border-radius: 999px;
-  background: transparent;
   color: var(--text-muted);
-  cursor: pointer;
+  text-decoration: none;
 }
 
-.lang-switch button[aria-pressed="true"] {
+.lang-switch a:hover {
+  color: var(--text);
+}
+
+.lang-switch a[aria-current="true"] {
   background: var(--accent);
   color: var(--accent-contrast);
 }

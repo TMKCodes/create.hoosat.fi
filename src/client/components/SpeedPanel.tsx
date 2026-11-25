@@ -13,7 +13,10 @@ export const SpeedPanel = () => {
   const speed = usePageSpeed();
   return (
     <div className="speed">
-      <dl className="speed-tiles">
+      <noscript>
+        <p className="noscript-note">{t("speed.noscript")}</p>
+      </noscript>
+      <dl className="speed-tiles js-only">
         {metrics.map((metric) => {
           const value = speed?.[metric];
           return (
@@ -30,7 +33,7 @@ export const SpeedPanel = () => {
           );
         })}
       </dl>
-      <div className="speed-footer">
+      <div className="speed-footer js-only">
         <p>{t("speed.note")}</p>
         <button type="button" className="button button-ghost" onClick={() => window.location.reload()}>
           {t("speed.again")}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { HelmetProvider } from 'react-helmet-async';
-import { createI18n, pickLanguage } from '../common/i18n';
+import { createI18n, languageRedirect, pickLanguage } from '../common/i18n';
 import { absoluteUrl, sitemapPages } from '../common/site';
 import { buildRobotsTxt, buildSitemapXml } from '../server/seo-files';
 import { Document, isNotFound } from '../server/render';
@@ -100,5 +100,34 @@ describe('server rendering', () => {
 
   it('renders the not found page for unknown URLs', () => {
     expect(render('/nope', 'en')).toContain('Page not found');
+  });
+});
+
+describe('language links without JavaScript', () => {
+  it('redirect to the clean URL and remember the language', () => {
+    expect(languageRedirect('/tutorial?lng=fi')).toEqual({
+      location: '/tutorial',
+      cookie: 'lng=fi; Path=/; Max-Age=31536000; SameSite=Lax',
+    });
+    expect(languageRedirect('/?lng=en&ref=github')).toEqual({
+      location: '/?ref=github',
+      cookie: 'lng=en; Path=/; Max-Age=31536000; SameSite=Lax',
+    });
+  });
+
+  it('ignore pages without the parameter and unsupported languages', () => {
+    expect(languageRedirect('/tutorial')).toBeUndefined();
+    expect(languageRedirect('/tutorial?ref=x')).toBeUndefined();
+    expect(languageRedirect('/?lng=xx')).toEqual({ location: '/' });
+  });
+
+  it('never redirect to another site', () => {
+    expect(languageRedirect('//evil.example?lng=fi')?.location).toBe('/evil.example');
+  });
+
+  it('render the switch as links that work without JavaScript', () => {
+    const html = render('/tutorial', 'en');
+    expect(html).toContain('href="/tutorial?lng=fi"');
+    expect(html).toMatch(/<a[^>]*href="\/tutorial\?lng=en"[^>]*aria-current="true"/);
   });
 });

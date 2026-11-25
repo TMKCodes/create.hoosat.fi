@@ -42,16 +42,29 @@ export const PingDemo = () => {
     : state.kind === "pending" ? t("demo.pending")
     : t("demo.idle");
 
+  // A real form: without JavaScript the button opens the API's reply directly,
+  // with JavaScript the reply is fetched and shown here.
   return (
-    <div className="ping">
-      <button type="button" className="button button-primary" onClick={ping} disabled={state.kind === "pending"}>
+    <form
+      className="ping"
+      method="get"
+      action="/api/ping"
+      onSubmit={(event) => {
+        event.preventDefault();
+        void ping();
+      }}
+    >
+      <button type="submit" className="button button-primary" disabled={state.kind === "pending"}>
         {t("demo.button")}
       </button>
-      <output className={`ping-output ping-${state.kind}`} aria-live="polite">
+      <output className={`ping-output ping-${state.kind} js-only`} aria-live="polite">
         <span className="ping-dot" aria-hidden="true" />
         <span>GET /api/ping</span>
         <span className="ping-message">{message}</span>
       </output>
-    </div>
+      <noscript>
+        <p className="noscript-note">{t("demo.noscript")}</p>
+      </noscript>
+    </form>
   );
 };

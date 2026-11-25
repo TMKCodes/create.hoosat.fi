@@ -10,8 +10,32 @@ export const defaultLanguage: Language = "en";
 /** Name of the cookie the language switch writes and the server reads. */
 export const languageCookie = "lng";
 
-const isLanguage = (value: string | undefined): value is Language =>
-  value !== undefined && (supportedLanguages as readonly string[]).includes(value);
+export const isLanguage = (value: string | null | undefined): value is Language =>
+  typeof value === "string" && (supportedLanguages as readonly string[]).includes(value);
+
+/**
+ * The cookie that remembers a language choice for a year.
+ */
+export const languageCookieValue = (lng: Language): string =>
+  `${languageCookie}=${lng}; Path=/; Max-Age=31536000; SameSite=Lax`;
+
+/**
+ * Handles the language links (`/tutorial?lng=fi`), which work without JavaScript: returns the clean URL
+ * to redirect to and the cookie to set, or undefined when the URL has no `lng` parameter.
+ */
+export const languageRedirect = (url: string): { location: string; cookie?: string } | undefined => {
+  const [rawPath, rawQuery = ""] = url.split("?");
+  const query = new URLSearchParams(rawQuery);
+  if (!query.has(languageCookie)) {
+    return undefined;
+  }
+  const requested = query.get(languageCookie);
+  query.delete(languageCookie);
+  const rest = query.toString();
+  // Always a same-site path: never "//host", which a browser would treat as another origin.
+  const location = `/${rawPath.replace(/^\/+/, "")}${rest ? `?${rest}` : ""}`;
+  return { location, cookie: isLanguage(requested) ? languageCookieValue(requested) : undefined };
+};
 
 /**
  * Creates a fresh i18next instance for one language.

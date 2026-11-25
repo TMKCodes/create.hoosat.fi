@@ -42,6 +42,7 @@
     "unavailable": "n/a",
     "note": "Server render is measured on the server; the rest is measured from the moment you navigated. Reload to measure again, or open DevTools and look for Server-Timing under Network > Timing.",
     "again": "Measure again",
+    "noscript": "These numbers are measured by your browser with JavaScript, which is turned off. The page itself was still rendered on the server: open DevTools and look for Server-Timing under Network > Timing.",
     "badge": "This page was server-rendered in {{ms}} ms"
   },
   "separation": {
@@ -92,7 +93,8 @@
     "idle": "Waiting for your click.",
     "result": "Server replied “{{reply}}” in {{ms}} ms.",
     "resultServer": "Server replied “{{reply}}”: {{server}} ms on the server, {{ms}} ms round trip.",
-    "error": "The server did not answer."
+    "error": "The server did not answer.",
+    "noscript": "With JavaScript off, the button opens the API's reply directly."
   },
   "cta": {
     "title": "Start your next site in one command",

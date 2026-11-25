@@ -42,6 +42,7 @@
     "unavailable": "ei saatavilla",
     "note": "Palvelinrenderöinti mitataan palvelimella, loput siitä hetkestä kun navigoit sivulle. Lataa sivu uudelleen mitataksesi uudestaan, tai avaa DevTools ja etsi Server-Timing kohdasta Network > Timing.",
     "again": "Mittaa uudelleen",
+    "noscript": "Selaimesi mittaa nämä luvut JavaScriptillä, joka on nyt pois päältä. Itse sivu renderöitiin silti palvelimella: avaa DevTools ja etsi Server-Timing kohdasta Network > Timing.",
     "badge": "Tämä sivu renderöitiin palvelimella {{ms}} ms:ssa"
   },
   "separation": {
@@ -92,7 +93,8 @@
     "idle": "Odottaa klikkaustasi.",
     "result": "Palvelin vastasi ”{{reply}}” {{ms}} ms:ssa.",
     "resultServer": "Palvelin vastasi ”{{reply}}”: palvelimella {{server}} ms, edestakaisin {{ms}} ms.",
-    "error": "Palvelin ei vastannut."
+    "error": "Palvelin ei vastannut.",
+    "noscript": "Kun JavaScript on pois päältä, painike avaa API:n vastauksen suoraan."
   },
   "cta": {
     "title": "Aloita seuraava sivustosi yhdellä komennolla",

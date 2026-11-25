@@ -1,16 +1,20 @@
 import React from "react";
+import { useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
-import { languageCookie, supportedLanguages } from "../../common/i18n";
+import { languageCookie, languageCookieValue, supportedLanguages } from "../../common/i18n";
 
 /**
- * Switches the language in place and remembers the choice in a cookie,
- * so the server renders the next page load in the same language.
+ * The EN/FI switch. Each option is a real link (`?lng=fi`): without JavaScript the server remembers the
+ * choice in a cookie and redirects back to the page. With JavaScript the language changes in place and
+ * the cookie is written here, so the next page load is rendered in the same language.
  */
 export const LanguageSwitch = () => {
   const { t, i18n } = useTranslation();
+  const { pathname } = useLocation();
 
-  const change = (lng: string) => {
-    document.cookie = `${languageCookie}=${lng}; path=/; max-age=31536000; SameSite=Lax`;
+  const change = (event: React.MouseEvent<HTMLAnchorElement>, lng: (typeof supportedLanguages)[number]) => {
+    event.preventDefault();
+    document.cookie = languageCookieValue(lng);
     document.documentElement.lang = lng;
     void i18n.changeLanguage(lng);
   };
@@ -18,15 +22,17 @@ export const LanguageSwitch = () => {
   return (
     <div className="lang-switch" role="group" aria-label={t("nav.language")}>
       {supportedLanguages.map((lng) => (
-        <button
+        <a
           key={lng}
-          type="button"
+          href={`${pathname}?${languageCookie}=${lng}`}
+          hrefLang={lng}
           lang={lng}
-          aria-pressed={i18n.language === lng}
-          onClick={() => change(lng)}
+          rel="nofollow"
+          aria-current={i18n.language === lng ? "true" : undefined}
+          onClick={(event) => change(event, lng)}
         >
           {lng.toUpperCase()}
-        </button>
+        </a>
       ))}
     </div>
   );

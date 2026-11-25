@@ -7,8 +7,8 @@ import { writeNonceToFile } from './core/nonce';
 import { APIRouter } from './api-routes';
 import { seoFiles } from './seo-files';
 import { serverTiming } from './timing';
-import { Document, isNotFound } from './render';
-import { pickLanguage } from '../common/i18n';
+import { Document, isNotFound, noScriptStyles } from './render';
+import { languageRedirect, pickLanguage } from '../common/i18n';
 
 dotenv.config();
 
@@ -42,6 +42,17 @@ DEBUG.log("APIRouter added.");
  */
 router.Get("*", async (req, res) => {
   const url = req.url ?? "/";
+  // The EN/FI links work without JavaScript: remember the choice and redirect to the clean URL.
+  const redirect = languageRedirect(url);
+  if (redirect) {
+    if (redirect.cookie) {
+      res.setHeader('Set-Cookie', redirect.cookie);
+    }
+    res.setHeader('Location', redirect.location);
+    res.setHeader('Cache-Control', 'no-store');
+    res.status(303).end();
+    return;
+  }
   const lng = pickLanguage(req.headers.cookie, req.headers['accept-language']);
   if (isNotFound(url)) {
     // Unknown URLs still render the friendly 404 page, but with a status search engines understand.
@@ -54,7 +65,7 @@ router.Get("*", async (req, res) => {
     jsx: <Document url={url} lng={lng} />,
     publicDir,
     // Pass every field: the core renderer concatenates them and a missing one would print "NaN".
-    headTags: { title: "", meta: "", link: "", script: "", base: "", style: "" },
+    headTags: { title: "", meta: "", link: "", script: "", base: "", style: noScriptStyles },
     // Inline styles.css into <head>: no render-blocking stylesheet request before the first paint.
     inlineStyles: true,
     // Stream the HTML compressed with Brotli or gzip, whichever the browser accepts.
