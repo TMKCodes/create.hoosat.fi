@@ -33,7 +33,6 @@ export const Footer = () => {
           <h2>{t("footer.community")}</h2>
           <ul>
             <li><a href={site.links.npm}>{t("footer.npm")}</a></li>
-            <li><a href={site.links.discord}>{t("footer.discord")}</a></li>
             <li><a href={site.links.company}>{t("footer.company")}</a></li>
           </ul>
         </nav>

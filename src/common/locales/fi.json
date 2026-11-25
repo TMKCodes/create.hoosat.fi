@@ -109,7 +109,6 @@
     "template": "Pohja",
     "core": "Palvelimen ydin",
     "npm": "npm-paketti",
-    "discord": "Discord",
     "company": "Hoosat Oy",
     "license": "MIT-lisenssi."
   },

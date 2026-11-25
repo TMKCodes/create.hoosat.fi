@@ -12,7 +12,6 @@ export const site = {
     template: "https://github.com/TMKCodes/hoosat-template",
     serverCore: "https://github.com/TMKCodes/hoosat-server-core",
     npm: "https://www.npmjs.com/package/hoosat-create",
-    discord: "https://discord.gg/UXPFcPaPBg",
     company: "https://hoosat.fi",
   },
 } as const;

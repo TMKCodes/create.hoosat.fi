@@ -88,4 +88,4 @@ The container listens on port 3070 and has a `HEALTHCHECK` on `/api/health`.
 
 ## License
 
-MIT. Join the community on [Discord](https://discord.gg/UXPFcPaPBg).
+MIT.
