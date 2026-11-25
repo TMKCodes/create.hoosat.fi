@@ -31,6 +31,14 @@
     "compression": { "value": "3", "label": "valmiiksi pakattua muotoa: br, gzip, deflate" },
     "typescript": { "value": "100 %", "label": "TypeScriptiä, myös build-työkalut" }
   },
+  "separation": {
+    "title": "Asiakas ja palvelin pidetään erillään",
+    "lead": "Monissa React-frameworkeissa palvelin- ja asiakaskoodi sulautuvat samoihin tiedostoihin server componenttien, loaderien ja server actionien avulla, ja framework päättää käännösvaiheessa, mikä ajetaan missä. Hoosat Createssä sen päättää kansio.",
+    "client": { "runs": "Selain", "body": "React-sovelluksesi: sivut, komponentit ja CSS. Paketoidaan selaimelle tiedostosta src/client/index.tsx alkaen." },
+    "server": { "runs": "Node.js", "body": "Oma HTTP-palvelimesi: middlewaret, API-reitit ja renderöinti. Paketoidaan tiedostoksi build/server.js tiedostosta src/server/index.tsx alkaen." },
+    "common": { "runs": "Molemmat", "body": "Koodi, jota molemmat puolet käyttävät, kuten tämän sivuston kielivalinta ja asetukset. Ei mitään selain- tai palvelinkohtaista." },
+    "note": "Kaksi webpack-konfiguraatiota, kaksi bundlea eikä yhtään \"use client\"- tai \"use server\" -direktiiviä. Tiedät aina, mitä selaimeen lähetetään."
+  },
   "features": {
     "title": "Kaikki mitä tuotantosivusto tarvitsee, ei mitään ylimääräistä",
     "lead": "Pohja on lähtökohta, jonka kopioit itsellesi, ei framework josta olet riippuvainen. Jokainen alla oleva ominaisuus on tavallista koodia omassa repositoriossasi.",
@@ -114,7 +122,7 @@
     },
     "layout": {
       "title": "Tutustu rakenteeseen",
-      "p1": "Kaikki on kansiossa `src`, jaettuna sen mukaan missä koodi ajetaan:",
+      "p1": "Kaikki on kansiossa `src`, jaettuna sen mukaan missä koodi ajetaan. Asiakas- ja palvelinkoodia ei koskaan sekoiteta samaan tiedostoon, joten kansio kertoo, mitä selaimeen päätyy:",
       "p2": "`src/server/core` on kaikkien Hoosat-projektien jakama git-alimoduuli. Päivitä se komennolla `git submodule update --remote` sen sijaan että muokkaisit sitä paikallaan."
     },
     "page": {

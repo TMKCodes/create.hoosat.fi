@@ -31,6 +31,14 @@
     "compression": { "value": "3", "label": "precompressed formats: br, gzip, deflate" },
     "typescript": { "value": "100%", "label": "TypeScript, build tools included" }
   },
+  "separation": {
+    "title": "Client and server, kept apart",
+    "lead": "Many React frameworks fuse server and client code into the same files with server components, loaders and server actions, and decide at build time what runs where. In Hoosat Create, the folder decides.",
+    "client": { "runs": "Browser", "body": "Your React app: pages, components and CSS. Bundled for the browser, starting from src/client/index.tsx." },
+    "server": { "runs": "Node.js", "body": "Your own HTTP server: middlewares, API routes and rendering. Bundled into build/server.js, starting from src/server/index.tsx." },
+    "common": { "runs": "Both", "body": "Code both sides import, like this site's language picker and settings. Nothing browser- or server-specific." },
+    "note": "Two webpack configs, two bundles and no \"use client\" or \"use server\" directives. You always know what ships to the browser."
+  },
   "features": {
     "title": "Everything a production site needs, nothing it doesn't",
     "lead": "The template is a starting point you copy, not a framework you depend on. Every feature below is plain code in your repository.",
@@ -114,7 +122,7 @@
     },
     "layout": {
       "title": "Find your way around",
-      "p1": "Everything lives in `src`, split by where the code runs:",
+      "p1": "Everything lives in `src`, split by where the code runs. Client and server code are never mixed in the same file, so the folder tells you what ends up in the browser:",
       "p2": "`src/server/core` is a git submodule shared by every Hoosat project. Update it with `git submodule update --remote` instead of editing it in place."
     },
     "page": {

@@ -87,6 +87,67 @@
   }
 }
 
+/* Client and server separation */
+
+.section-tight {
+  padding-bottom: 0;
+}
+
+.separation {
+  list-style: none;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.separation-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.separation-path {
+  padding: 0;
+  background: none;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.separation-runs {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.separation-server .separation-runs {
+  background: rgba(139, 108, 255, 0.14);
+  color: var(--violet);
+}
+
+.separation-common .separation-runs {
+  background: var(--bg-alt);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.separation-note {
+  margin: 24px 0 0;
+  color: var(--text-muted);
+}
+
+@media (max-width: 860px) {
+  .separation {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* Features */
 
 .feature-grid {

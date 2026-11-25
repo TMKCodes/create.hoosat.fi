@@ -87,6 +87,8 @@ describe('server rendering', () => {
     expect(html).toContain('<html lang="en">');
     expect(html).toContain('without the framework.');
     expect(html).toContain('npx hoosat-create@latest');
+    expect(html).toContain('Client and server, kept apart');
+    expect(html).not.toMatch(/hoosatui/i);
   });
 
   it('renders the tutorial in Finnish', () => {

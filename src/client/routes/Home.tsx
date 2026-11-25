@@ -10,6 +10,7 @@ import { site } from "../../common/site";
 import { serverSnippet, terminalSnippet } from "../content/snippets";
 
 const proofKeys = ["command", "express", "compression", "typescript"] as const;
+const separationKeys = ["client", "server", "common"] as const;
 const featureKeys = ["ssr", "router", "seo", "compression", "typescript", "i18n", "security", "testing", "dev"] as const;
 const flowKeys = ["request", "middleware", "route", "render", "head", "hydrate"] as const;
 const stack = [
@@ -89,6 +90,27 @@ export const Home = () => {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section id="separation" className="section section-tight">
+        <div className="container">
+          <header className="section-header">
+            <h2>{t("separation.title")}</h2>
+            <p>{t("separation.lead")}</p>
+          </header>
+          <ul className="separation">
+            {separationKeys.map((key) => (
+              <li key={key} className={`card separation-${key}`}>
+                <div className="separation-head">
+                  <code className="separation-path">src/{key}</code>
+                  <span className="separation-runs">{t(`separation.${key}.runs`)}</span>
+                </div>
+                <p>{t(`separation.${key}.body`)}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="separation-note">{t("separation.note")}</p>
         </div>
       </section>
 
