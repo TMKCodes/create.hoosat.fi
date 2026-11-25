@@ -5,6 +5,7 @@ import { Seo } from "../components/Seo";
 import { CopyCommand } from "../components/CopyCommand";
 import { CodeBlock } from "../components/CodeBlock";
 import { PingDemo } from "../components/PingDemo";
+import { SpeedPanel } from "../components/SpeedPanel";
 import { ArrowRightIcon, GitHubIcon } from "../components/Icons";
 import { site } from "../../common/site";
 import { serverSnippet, terminalSnippet } from "../content/snippets";
@@ -90,6 +91,16 @@ export const Home = () => {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section id="speed" className="section section-tight">
+        <div className="container">
+          <header className="section-header">
+            <h2>{t("speed.title")}</h2>
+            <p>{t("speed.lead")}</p>
+          </header>
+          <SpeedPanel />
         </div>
       </section>
 

@@ -6,6 +6,7 @@ import { DEBUG } from './core/errors';
 import { writeNonceToFile } from './core/nonce';
 import { APIRouter } from './api-routes';
 import { seoFiles } from './seo-files';
+import { serverTiming } from './timing';
 import { Document, isNotFound } from './render';
 import { pickLanguage } from '../common/i18n';
 
@@ -21,12 +22,14 @@ const router = createRouter();
 
 /**
  * Middlewares run in the order they are registered, before any route.
- * 1. robots.txt and sitemap.xml are generated from src/common/site.ts.
- * 2. Static files are served from the public directory, precompressed when the browser allows it.
+ * 1. Server-Timing header on every response, so the site can show how fast it rendered.
+ * 2. robots.txt and sitemap.xml are generated from src/common/site.ts.
+ * 3. Static files are served from the public directory, precompressed when the browser allows it.
  *
  * The template also registers `cors()` and `upload()`. This site only serves same-origin pages and
  * accepts no files, so both are left out on purpose.
  */
+router.Middleware(serverTiming());
 router.Middleware(seoFiles());
 router.Middleware(assets(publicDir));
 

@@ -31,6 +31,19 @@
     "compression": { "value": "3", "label": "valmiiksi pakattua muotoa: br, gzip, deflate" },
     "typescript": { "value": "100 %", "label": "TypeScriptiä, myös build-työkalut" }
   },
+  "speed": {
+    "title": "Mitattu juuri sinun käynniltäsi",
+    "lead": "Nopeutta on helppo väittää, joten tässä luvut. Ne mitataan selaimessasi sille sivulataukselle, jolla avasit tämän sivuston, palvelimen lähettämästä Server-Timing-otsakkeesta ja selaimen omista ajoitusrajapinnoista.",
+    "server": { "label": "Palvelinrenderöinti", "hint": "Pyynnön reitityksestä striimatun HTML:n ensimmäiseen tavuun" },
+    "firstByte": { "label": "Ensimmäinen tavu", "hint": "Navigoinnin alusta, verkko mukaan lukien" },
+    "firstPaint": { "label": "Ensimmäinen piirto", "hint": "Ensimmäinen sisältö näytöllä" },
+    "interactive": { "label": "Interaktiivinen", "hint": "React on hydratoinut palvelimen HTML:n" },
+    "loaded": { "label": "Täysin ladattu", "hint": "Load-tapahtuma on valmis" },
+    "unavailable": "ei saatavilla",
+    "note": "Palvelinrenderöinti mitataan palvelimella, loput siitä hetkestä kun navigoit sivulle. Lataa sivu uudelleen mitataksesi uudestaan, tai avaa DevTools ja etsi Server-Timing kohdasta Network > Timing.",
+    "again": "Mittaa uudelleen",
+    "badge": "Tämä sivu renderöitiin palvelimella {{ms}} ms:ssa"
+  },
   "separation": {
     "title": "Asiakas ja palvelin pidetään erillään",
     "lead": "Monissa React-frameworkeissa palvelin- ja asiakaskoodi sulautuvat samoihin tiedostoihin server componenttien, loaderien ja server actionien avulla, ja framework päättää käännösvaiheessa, mikä ajetaan missä. Hoosat Createssä sen päättää kansio.",
@@ -78,6 +91,7 @@
     "pending": "Lähetetään…",
     "idle": "Odottaa klikkaustasi.",
     "result": "Palvelin vastasi ”{{reply}}” {{ms}} ms:ssa.",
+    "resultServer": "Palvelin vastasi ”{{reply}}”: palvelimella {{server}} ms, edestakaisin {{ms}} ms.",
     "error": "Palvelin ei vastannut."
   },
   "cta": {

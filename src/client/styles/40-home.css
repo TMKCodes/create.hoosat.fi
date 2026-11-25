@@ -87,6 +87,132 @@
   }
 }
 
+/* Live speed: a row of stat tiles. Values use text colors; the accent only marks the server tile. */
+
+.speed-tiles {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--border);
+  overflow: hidden;
+}
+
+.speed-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 22px 20px;
+  background: var(--bg-elevated);
+}
+
+.speed-tile dt {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.speed-tile dd {
+  margin: 0;
+}
+
+.speed-tile-hero {
+  box-shadow: inset 0 3px 0 var(--accent);
+}
+
+.speed-value {
+  color: var(--text);
+  font-size: clamp(1.8rem, 3vw, 2.3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.speed-unit {
+  margin-left: 4px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.speed-hint {
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.speed-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.speed-footer p {
+  margin: 0;
+  max-width: 760px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.speed-footer .button {
+  flex: none;
+}
+
+@media (max-width: 1000px) {
+  .speed-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .speed-tile-hero {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .speed-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Footer badge */
+
+.speed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.site-footer a.speed-badge {
+  color: var(--text);
+}
+
+.site-footer a.speed-badge:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.speed-badge-empty {
+  visibility: hidden;
+}
+
+.speed-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
 /* Client and server separation */
 
 .section-tight {

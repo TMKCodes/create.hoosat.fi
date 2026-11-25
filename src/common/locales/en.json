@@ -31,6 +31,19 @@
     "compression": { "value": "3", "label": "precompressed formats: br, gzip, deflate" },
     "typescript": { "value": "100%", "label": "TypeScript, build tools included" }
   },
+  "speed": {
+    "title": "Measured on your visit",
+    "lead": "Fast is easy to claim, so here are the numbers. They are measured live in your browser for the page load that opened this site, from the Server-Timing header this server sends and the browser's own timing APIs.",
+    "server": { "label": "Server render", "hint": "Routing the request to the first byte of streamed HTML" },
+    "firstByte": { "label": "First byte", "hint": "From navigation start, network included" },
+    "firstPaint": { "label": "First paint", "hint": "First content on screen" },
+    "interactive": { "label": "Interactive", "hint": "React finished hydrating the server HTML" },
+    "loaded": { "label": "Fully loaded", "hint": "The load event finished" },
+    "unavailable": "n/a",
+    "note": "Server render is measured on the server; the rest is measured from the moment you navigated. Reload to measure again, or open DevTools and look for Server-Timing under Network > Timing.",
+    "again": "Measure again",
+    "badge": "This page was server-rendered in {{ms}} ms"
+  },
   "separation": {
     "title": "Client and server, kept apart",
     "lead": "Many React frameworks fuse server and client code into the same files with server components, loaders and server actions, and decide at build time what runs where. In Hoosat Create, the folder decides.",
@@ -78,6 +91,7 @@
     "pending": "Pinging…",
     "idle": "Waiting for your click.",
     "result": "Server replied “{{reply}}” in {{ms}} ms.",
+    "resultServer": "Server replied “{{reply}}”: {{server}} ms on the server, {{ms}} ms round trip.",
     "error": "The server did not answer."
   },
   "cta": {

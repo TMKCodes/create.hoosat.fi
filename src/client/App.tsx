@@ -5,6 +5,7 @@ import { Footer } from "./components/Footer";
 import { Home } from "./routes/Home";
 import { Tutorial } from "./routes/Tutorial";
 import { NotFound } from "./routes/NotFound";
+import { hydratedMark } from "./performance";
 
 /**
  * The route list is shared by the browser router and the server.
@@ -38,9 +39,22 @@ const useScrollOnNavigate = () => {
   }, [pathname, hash]);
 };
 
+/**
+ * Marks the moment React has hydrated the server HTML. Effects only run in the browser,
+ * after the first commit, so this is when the page became interactive.
+ */
+const useHydratedMark = () => {
+  useEffect(() => {
+    if (performance.getEntriesByName(hydratedMark).length === 0) {
+      performance.mark(hydratedMark);
+    }
+  }, []);
+};
+
 export default function App() {
   const page = useRoutes(routes);
   useScrollOnNavigate();
+  useHydratedMark();
   return (
     <>
       <Header />

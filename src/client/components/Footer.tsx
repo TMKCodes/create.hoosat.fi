@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { site } from "../../common/site";
 import { Logo } from "./Icons";
+import { SpeedBadge } from "./SpeedPanel";
 
 export const Footer = () => {
   const { t } = useTranslation();
@@ -15,6 +16,7 @@ export const Footer = () => {
             <span>Hoosat <strong>Create</strong></span>
           </Link>
           <p>{t("footer.tagline")}</p>
+          <SpeedBadge />
           <p className="footer-small">© {new Date().getFullYear()} <a href={site.links.company}>{t("footer.company")}</a>. {t("footer.license")}</p>
         </div>
         <nav aria-label={t("footer.project")}>
