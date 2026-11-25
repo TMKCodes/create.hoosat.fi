@@ -76,7 +76,7 @@ const inputDirectory = process.argv[2];
 const algorithm = process.argv[3];
 
 if (!inputDirectory || !algorithm) {
-  console.error('Usage: node --loader ts-node/esm src/server/core/build/compress-files.ts <inputDirectory> <algorithm>');
+  console.error('Usage: node build-tools/compress-files.ts <inputDirectory> <algorithm>');
   process.exit(1);
 }
 

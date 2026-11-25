@@ -1,11 +1,10 @@
 import { readdirSync, statSync, writeFileSync } from "fs";
-import { join } from "path";
+import { join, relative, sep } from "path";
 
-var baseDirectory = "build/public";
-if (process.env.NODE_ENV === "development") {
-  baseDirectory = "build-dev/public";
-}
-const outputFile = `${baseDirectory}/service-worker-urls.js`;
+// The build directory can be passed as the first argument, otherwise it is picked by NODE_ENV.
+const baseDirectory = process.argv[2]
+  || (process.env.NODE_ENV === "development" ? "build-dev/public" : "build/public");
+const outputFile = join(baseDirectory, "service-worker-urls.js");
 
 function walkSync(directory, filelist = []) {
   readdirSync(directory).forEach((file) => {
@@ -14,7 +13,8 @@ function walkSync(directory, filelist = []) {
     if (statSync(fullPath).isDirectory()) {
       walkSync(fullPath, filelist);
     } else {
-      filelist.push(fullPath.replace(baseDirectory + "/", ""));
+      // Always use URL style forward slashes, also on Windows.
+      filelist.push(relative(baseDirectory, fullPath).split(sep).join("/"));
     }
   });
 

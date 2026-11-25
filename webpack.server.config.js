@@ -1,16 +1,15 @@
 // webpack.server.config.js
-import path, { resolve as _resolve } from "path";
+import { resolve as _resolve } from "path";
 import webpack from 'webpack';
-import { execSync } from "child_process";
 
-
-export default (env, argv) => {
-  const isDevelopment = argv.mode === 'development'
+export default (_env, argv) => {
+  const mode = argv.mode || 'development';
+  const isDevelopment = mode === 'development';
   const buildDir = isDevelopment ? 'build-dev' : 'build';
   return {
     devtool: "source-map",
-    mode: argv.mode || "development",
-    target: "node",
+    mode,
+    target: "node22",
     entry: "./src/server/index.tsx",
     output: {
       filename: "server.js",
@@ -18,7 +17,9 @@ export default (env, argv) => {
       module: true,
       chunkFormat: "module",
       library: { type: "module" },
-      libraryTarget: "module",
+      publicPath: "/",
+      // Must match webpack.client.config.js so server rendered asset URLs equal the client ones.
+      assetModuleFilename: "assets/[contenthash][ext]",
     },
     experiments: {
       outputModule: true,
@@ -35,13 +36,10 @@ export default (env, argv) => {
           use: ["css-loader"],
         },
         {
-          test: /\.json$/,
-          loader: 'json-loader',
-          type: 'javascript/auto',
-        },
-        {
-          test: /\.(png\|jpg\|gif\|avif\|\/otf\/|ttf)$/i,
-          loader: 'ignore-loader',
+          // The client build emits these files, the server only needs their URLs.
+          test: /\.(png|jpe?g|gif|avif|webp|svg|ico|otf|ttf|woff2?)$/i,
+          type: 'asset/resource',
+          generator: { emit: false },
         },
         {
           test: /\.node$/,
@@ -56,9 +54,11 @@ export default (env, argv) => {
       extensions: [".tsx", ".ts", ".js", ".jsx"],
     },
     ignoreWarnings: [
-      /aws-crt/, 
-      /mongodb\/lib\/utils.js/, 
-      /mongodb\/lib\/deps.js/
+      /aws-crt/,
+      /mongodb\/lib\/utils.js/,
+      /mongodb\/lib\/deps.js/,
+      // Optional native performance add-ons of ws.
+      /Can't resolve '(bufferutil|utf-8-validate)'/,
     ],
     plugins: [
       new webpack.DefinePlugin({

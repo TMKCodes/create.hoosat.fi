@@ -1,19 +1,22 @@
 // webpack.client.config.js
-import webpack from 'webpack';
 import { resolve as _resolve } from "path";
-import TerserPlugin from 'terser-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin';
 
-export default (env, argv) => {
-  const isDevelopment = argv.mode === 'development'
+export default (_env, argv) => {
+  const mode = argv.mode || 'development';
+  const isDevelopment = mode === 'development';
   const buildDir = isDevelopment ? 'build-dev' : 'build';
   return {
     devtool: "source-map",
-    mode: argv.mode,
+    mode,
     target: "web",
-    entry: './src/client/index.tsx',  
+    entry: './src/client/index.tsx',
     output: {
       filename: "bundle.[contenthash].js",
       path: _resolve(`./${buildDir}/public`),
+      publicPath: "/",
+      // Must match webpack.server.config.js so server rendered asset URLs equal the client ones.
+      assetModuleFilename: "assets/[contenthash][ext]",
     },
     experiments: {
       outputModule: true,
@@ -25,21 +28,12 @@ export default (env, argv) => {
           use: ["css-loader"],
         },
         {
-          test: /\.(png\|jpg\|gif\|avif\|\/otf\/|ttf)$/i,
-          loader: 'ignore-loader',
+          test: /\.(png|jpe?g|gif|avif|webp|svg|ico|otf|ttf|woff2?)$/i,
+          type: 'asset/resource',
         },
         {
           test: /\.(ts|tsx)$/,
-          exclude: [
-            /node_modules/,
-            /node_modules\/(dotenv|google-auth-library|formidable|dotenv|mongoose)/,
-            /node_modules\/(nodemailer|sync-fetch|uuid|ws|chokidar-cli|compression-webpack-plugin)/,
-            /node_modules\/(css-loader|esm|file-loader|jest|json-loader|mkdirp|ncp|node-loader)/,
-            /node_modules\/(nodemon|npm-run-all|style-loader|terser-webpack-plugin|ts-loader|ts-node)/,
-            /node_modules\/(tsconfig-paths|typescript|webpack|webpack-bundle-analyzer|webpack-cli)/,
-            /node_modules\/(webpack-dev-server|webpack-node-externals)/
-
-          ],
+          exclude: /node_modules/,
           use: ["ts-loader"],
         },
       ],
@@ -49,8 +43,8 @@ export default (env, argv) => {
     },
     optimization: {
       emitOnErrors: false,
-      moduleIds: 'hashed',
-      minimize: true,
+      moduleIds: 'deterministic',
+      minimize: !isDevelopment,
       minimizer: [new TerserPlugin({
         parallel: true,
         terserOptions: {
@@ -68,8 +62,8 @@ export default (env, argv) => {
             passes: 5,
           },
         },
-      }),],
-      runtimeChunk: 'single', 
+      })],
+      runtimeChunk: 'single',
       splitChunks: {
         chunks: 'all',
         minSize: 30000,

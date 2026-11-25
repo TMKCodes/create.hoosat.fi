@@ -1,7 +1,7 @@
 import React from "react";
 import { hydrateRoot } from "react-dom/client";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { HelmetProvider } from "react-helmet-async";
 import i18n from "./i18n";
 import { I18nextProvider } from "react-i18next";

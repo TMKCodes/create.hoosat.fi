@@ -85,7 +85,7 @@ const inputDirectory = process.argv[2];
 const outputFile = process.argv[3];
 
 if (!inputDirectory || !outputFile) {
-  console.error('Usage: node --loader ts-node/esm src/server/core/build/extract-css.ts <inputDirectory> <outputFile>');
+  console.error('Usage: node build-tools/extract-css.ts <inputDirectory> <outputFile>');
   process.exit(1);
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import App from '../client/App';
 import dotenv from 'dotenv';
-import { StaticRouter } from 'react-router-dom/server';
+import { StaticRouter } from 'react-router';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './core/i18n';
 import { cors } from './core/cors';
@@ -74,9 +74,9 @@ DEBUG.log("APIRouter added.");
 router.Get("*", async (req, res) => {
   /**
    * Represents the JSX element for the server-side rendering.
-   * @type {JSX.Element}
+   * @type {React.JSX.Element}
    */
-  const jsx: JSX.Element = 
+  const jsx: React.JSX.Element = 
         <I18nextProvider i18n={i18n}>
           <html lang="FI-fi">
             <head>

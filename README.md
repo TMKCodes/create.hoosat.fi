@@ -11,6 +11,11 @@ Hoosat Create is a full-stack server-side rendered (SSR) TypeScript React stack 
 - **Optional Hoosat UI React Component Library:** As an optional dependency, Hoosat Create offers the Hoosat UI React component library, which you can use to enhance your application's user interface with pre-designed UI components.
 
 
+## Requirements
+
+- Node.js 22.22.2+, 24.15+ or 26+ (a supported LTS line, see `.nvmrc`). Node.js 20 and older are end-of-life and not supported.
+- npm. The included `.npmrc` sets `min-release-age=7`, so npm only installs package versions that have been public for at least 7 days (supply-chain protection, supported by the npm 11 bundled with Node.js 24 and 26).
+
 ## Getting started
 
 To create a new project using Hoosat Create, simply run the following command:
@@ -30,26 +35,28 @@ To start the development server, use the following command:
 npm run dev
 ```
 
-This command will concurrently build the development version of the client and server and run the server to serve both the client and API routes. The application will be accessible at `https://localhost:8080` in your browser.
+This command will build the development version of the client and server and run the server to serve both the client and API routes. The application will be accessible at `http://localhost:8181` (the `PORT` in `.env`) in your browser.
 
 ## Scripts
 
-- `npm run dev`: Builds and runs the development version.
-  - This script concurrently executes the following commands:
-    - `npm run dev:build:client`: Builds the client in development mode and watches for file changes.
-    - `npm run dev:build:server`: Builds the server in development mode and watches for file changes.
-    - `npm run dev:run`: Starts the server with Nodemon to automatically restart it on file changes.
+All scripts are cross-platform (Linux, macOS and Windows). Build helpers in `build-tools/` are TypeScript files run directly with Node.js' built-in type stripping, no ts-node or other loader is needed.
 
-- `npm run build`: Builds the production version.
-  - This script sequentially executes the following commands:
-    - `npm run build:client`: Builds the client in production mode.
-    - `npm run build:server`: Builds the server in production mode.
+- `npm run dev`: Builds and runs the development version.
+  - `npm run dev:build`: Builds the client and server in development mode into `build-dev`.
+  - `npm run dev:watch`: Rebuilds with Nodemon when files in `src` or `public` change.
+  - `npm run dev:start`: Starts the server with Nodemon and restarts it when `build-dev/server.js` changes.
+
+- `npm run build`: Builds the production version into `build`.
+  - This script sequentially executes `build:prepare`, `build:client`, `build:server` and `compress:assets`.
 
 - `npm run start`: Runs the production version.
   - This script starts the server using the compiled production files.
 
 - `npm run test`: Runs test units with Jest.
-  - This script executes the test units using Jest.
+
+- `npm run typecheck`: Type checks the project with TypeScript.
+
+- `npm run docs`: Generates API documentation with TypeDoc into `public/docs`.
 
 ## File structure
 
@@ -67,7 +74,7 @@ File: `./src/server/index.tsx`
 ```
 import React from 'react';
 import App from '../client/App';
-import { StaticRouter } from 'react-router-dom/server';
+import { StaticRouter } from 'react-router';
 import { HelmetProvider } from 'react-helmet-async';
 
 
@@ -131,7 +138,7 @@ router.Get("*", async (req, res) => {
   const helmetContext = {};
   /**
    * Represents the JSX element for the server-side rendering.
-   * @type {JSX.Element}
+   * @type {React.JSX.Element}
    */
   const jsx = 
     <React.StrictMode>

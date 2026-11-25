@@ -25,7 +25,7 @@ const removeFilesByExtension = (directoryPath: string, extensionsToRemove: strin
 const [, , directoryPath, ...fileExtensions] = process.argv;
 
 if (!directoryPath || fileExtensions.length === 0) {
-  console.error('Usage: node remove-files.js <directoryPath> <extension1> [<extension2> ...]');
+  console.error('Usage: node build-tools/remove-files-by-extension.ts <directoryPath> <extension1> [<extension2> ...]');
   process.exit(1);
 }
 

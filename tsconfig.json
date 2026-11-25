@@ -1,61 +1,50 @@
 {
   // Specify the compiler options
   "compilerOptions": {
-    // Set the output directory to "dist"
+    // Set the output directory for plain tsc builds
     "outDir": "./build-ts",
-    // Set the module system to "esnext"
+    // Root of the source files (required by TypeScript 6 when emitting)
+    "rootDir": "./src",
+    // Use ES modules, webpack bundles them
     "module": "ESNext",
-    // Set the ECMAScript target version to "ES2020"
-    "target": "esnext",
-    // Enable JSX support for React components
-    "jsx": "react",
+    // Set the ECMAScript target version
+    "target": "ES2023",
+    // Use the automatic JSX runtime (React 17+), importing React in every file is not required
+    "jsx": "react-jsx",
     // Specify the library files to include
     "lib": [
-      "ES2020",
-      "dom"
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
     ],
+    // Type packages to include (TypeScript 6 no longer includes every @types package by default)
+    "types": ["node", "jest"],
     // Enable source maps for easier debugging
     "sourceMap": true,
-    // Allow importing modules with default exports
+    // Allow importing CommonJS modules with default imports
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    // Specify the module resolution strategy to use
-    "moduleResolution": "node",
+    // Resolve modules the same way webpack does
+    "moduleResolution": "bundler",
     // Enable importing JSON files as modules
     "resolveJsonModule": true,
     // Generate declaration files
     "declaration": true,
     // [Optional] Enable emitting declaration map files
     "declarationMap": true,
-    // Disallow implicit "any" types
-    "noImplicitAny": true,
-    // Disallow the use of "this" without an explicit type annotation
-    "noImplicitThis": true,
-    // Require all functions to have a return statement
+    // Enable all strict type checks
+    "strict": true,
+    // Require all code paths in a function to return a value
     "noImplicitReturns": true,
-    // Enable strict null checks
-    "strictNullChecks": true,
     // [Optional] Enable decorators
     "experimentalDecorators": true,
-    // [Optional] Enable strict property initialization checks
-    "strictPropertyInitialization": true,
-    // [Optional] Enable strict function types
-    "strictFunctionTypes": true,
     // [Optional] Enable no unused variables check
     "noUnusedLocals": false,
     // [Optional] Enable no unused parameters check
     "noUnusedParameters": true,
-    // Enable @types in src folder.
-    "baseUrl": "./",
-    "plugins": [{ "name": "typescript-plugin-css-modules" }],
-  },
-  "ts-node": {
-    "files": true,
-    "transpileOnly": true,
-    "compilerOptions": {
-      "baseUrl": "./",
-      "module": "ESNext", 
-      "moduleResolution": "node"
-    }
+    // Skip type checking of declaration files in node_modules
+    "skipLibCheck": true,
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
   "typedocOptions": {
     "entryPoints": ["./src"],
