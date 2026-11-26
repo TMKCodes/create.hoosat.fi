@@ -103,7 +103,7 @@
     "secondary": "Browse this site's source"
   },
   "footer": {
-    "tagline": "React SSR stack by Hoosat Oy. This site is built with Hoosat Create.",
+    "tagline": "React SSR stack by TMKCodes. This site is built with Hoosat Create.",
     "project": "Project",
     "community": "Community",
     "source": "Source of this site",
@@ -111,7 +111,7 @@
     "template": "Template",
     "core": "Server core",
     "npm": "npm package",
-    "company": "Hoosat Oy",
+    "company": "TMKCodes",
     "license": "MIT licensed."
   },
   "tutorial": {

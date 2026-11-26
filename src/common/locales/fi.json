@@ -103,7 +103,7 @@
     "secondary": "Selaa tämän sivuston lähdekoodia"
   },
   "footer": {
-    "tagline": "Hoosat Oy:n React SSR -pino. Tämä sivusto on tehty Hoosat Createllä.",
+    "tagline": "TMKCodes:n React SSR -pino. Tämä sivusto on tehty Hoosat Createllä.",
     "project": "Projekti",
     "community": "Yhteisö",
     "source": "Tämän sivuston lähdekoodi",
@@ -111,7 +111,7 @@
     "template": "Pohja",
     "core": "Palvelimen ydin",
     "npm": "npm-paketti",
-    "company": "Hoosat Oy",
+    "company": "TMKCodes",
     "license": "MIT-lisenssi."
   },
   "tutorial": {

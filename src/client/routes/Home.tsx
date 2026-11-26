@@ -56,7 +56,7 @@ export const Home = () => {
           programmingLanguage: ["TypeScript", "React"],
           runtimePlatform: "Node.js",
           license: "https://opensource.org/licenses/MIT",
-          author: { "@type": "Organization", name: "Hoosat Oy", url: site.links.company },
+          author: { "@type": "Organization", name: "TMKCodes", url: site.links.company },
         }}
       />
 

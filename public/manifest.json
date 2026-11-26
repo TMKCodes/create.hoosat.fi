@@ -1,7 +1,7 @@
 {
   "name": "Hoosat Create",
   "short_name": "Hoosat Create",
-  "description": "React SSR and TypeScript stack by Hoosat Oy",
+  "description": "React SSR and TypeScript stack by TMKCodes",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0d14",
