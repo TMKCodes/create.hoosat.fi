@@ -4,3 +4,4 @@ build-ts/
 public/docs/
 node_modules/
 .nonce
+data/

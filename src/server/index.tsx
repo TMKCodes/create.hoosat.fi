@@ -9,11 +9,27 @@ import { seoFiles } from './seo-files';
 import { serverTiming } from './timing';
 import { Document, isNotFound, noScriptStyles } from './render';
 import { languageRedirect, pickLanguage } from '../common/i18n';
+import { dependencyCheckOptionsFromEnv, runDependencyCheck, startDependencyCheck } from './dependency-check';
 
 dotenv.config();
 
 const isDevelopment = process.argv[2] === "development";
 const publicDir = isDevelopment ? "./build-dev/public" : "./build/public";
+
+/**
+ * `node build/server.js --check-dependencies` checks the stack's dependencies once, emails every
+ * pending update and exits, without starting the server. Handy for testing the SMTP settings:
+ *   docker exec create-hoosat-fi node build/server.js --check-dependencies
+ */
+if (process.argv.includes("--check-dependencies")) {
+  try {
+    await runDependencyCheck({ ...dependencyCheckOptionsFromEnv(process.env), force: true });
+    process.exit(0);
+  } catch (error) {
+    console.error(`[dependency-check] ${(error as Error).message}`);
+    process.exit(1);
+  }
+}
 
 writeNonceToFile();
 
@@ -83,3 +99,9 @@ const port = parseInt(process.env.PORT || "8181");
 listen(server, port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+// Daily dependency update check with an email when the stack needs an update (see README, "Dependency updates").
+// Off in development so restarts do not send mail; DEPENDENCY_CHECK=off turns it off in production too.
+if (!isDevelopment && process.env.DEPENDENCY_CHECK !== "off") {
+  startDependencyCheck(dependencyCheckOptionsFromEnv(process.env));
+}

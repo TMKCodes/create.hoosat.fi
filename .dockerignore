@@ -6,3 +6,4 @@ public/docs
 .git
 .nonce
 *.log
+data

@@ -86,6 +86,52 @@ docker run -d -p 3070:3070 --restart unless-stopped create-hoosat-fi
 
 The container listens on port 3070 and has a `HEALTHCHECK` on `/api/health`.
 
+## Dependency updates
+
+The production server checks the stack's dependencies once a day ([src/server/dependency-check.ts](src/server/dependency-check.ts)) and emails toni.lukkaroinen@hoosat.fi when there are updates that have not been reported yet. It reads two `package.json` files: the one deployed with this site and the [hoosat-template](https://github.com/TMKCodes/hoosat-template) one on GitHub, which is what `npx hoosat-create` installs. The email lists every pending update, marks the new ones, and splits them into:
+
+- **Outside the current range**: a new major version (or minor for `~` ranges). `package.json` must change, read the changelog first.
+- **Allowed by the current range**: `npm update` picks it up; release a new lockfile so new projects get it.
+
+Like `min-release-age=7` in `.npmrc`, a release is only reported once it is 7 days old, so npm will install it. New `@types/node` majors are not reported, because the types follow the oldest supported Node.js (22). Each update is emailed once; the state is kept in `data/dependency-check.json`.
+
+Settings (environment variables):
+
+| Variable | Default | |
+| --- | --- | --- |
+| `SMTP_HOST` | not set | Without it the report is only logged. |
+| `SMTP_PORT` | `587` | 587 uses STARTTLS (required), 465 uses TLS. The certificate is not checked, the server is expected on the same host. |
+| `SMTP_USER`, `SMTP_PASS` | not set | The mailbox that sends. |
+| `SMTP_FROM` | `SMTP_USER` | Must be that mailbox or one of its aliases on mailcow. |
+| `DEPENDENCY_CHECK_EMAIL` | `toni.lukkaroinen@hoosat.fi` | Recipient. |
+| `DEPENDENCY_CHECK_INTERVAL_HOURS` | `24` | The first check runs a minute after start-up. |
+| `DEPENDENCY_CHECK_MIN_RELEASE_AGE_DAYS` | `7` | Keep equal to `min-release-age` in `.npmrc`. |
+| `DEPENDENCY_CHECK_IGNORE_MAJOR` | `@types/node` | Comma separated. |
+| `DEPENDENCY_CHECK_SOURCES` | `package.json,` + the template URL | Comma separated paths or URLs. |
+| `DEPENDENCY_CHECK_STATE` | `data/dependency-check.json` | |
+| `DEPENDENCY_CHECK` | on | `off` disables it. It never runs with `npm run dev`. |
+
+With mailcow on the same host, put the credentials in a file outside the repository, e.g. `/etc/create.hoosat.fi/env` (`chmod 600`):
+
+```sh
+SMTP_HOST=127.0.0.1
+SMTP_PORT=587
+SMTP_USER=noreply@hoosat.fi
+SMTP_PASS=...
+```
+
+and run the container on the host network, so `127.0.0.1:587` is mailcow's submission port, with a volume for the state. The connection is encrypted with STARTTLS, but the certificate (issued for `mail.hoosat.fi`) is not checked. The server listens on the host's port `PORT` (3070 in the image).
+
+```sh
+docker run -d --network host --restart unless-stopped   --env-file /etc/create.hoosat.fi/env   -v create-hoosat-fi-data:/app/data   --name create-hoosat-fi create-hoosat-fi
+```
+
+Test the settings at any time: this checks once, emails every pending update and exits, without touching the running server.
+
+```sh
+docker exec create-hoosat-fi node build/server.js --check-dependencies
+```
+
 ## License
 
 MIT.

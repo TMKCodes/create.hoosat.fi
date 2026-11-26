@@ -15,7 +15,8 @@ ENV NODE_ENV=production \
 COPY --from=build /app/package.json ./
 COPY --from=build /app/build ./build
 # The server writes .nonce into the working directory and refreshes build/public/sitemap.xml.
-RUN chown -R node:node /app
+# data/ holds the dependency check state; mount a volume there so it survives redeploys.
+RUN mkdir -p /app/data && chown -R node:node /app
 USER node
 EXPOSE 3070
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s CMD wget -qO- http://127.0.0.1:3070/api/health || exit 1
